@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Fonts ──────────────────────────────────────────────── */
+@utility font-display { font-family: 'Syne', sans-serif; }
+@utility font-body    { font-family: 'Inter', sans-serif; }
+
+/* ─── Brand Colors ───────────────────────────────────────── */
+@utility blue        { color: #152fb2; }
+@utility blue-bg     { background-color: #152fb2; }
+@utility yellow      { color: #EBCF42; }
+@utility yellow-bg   { background-color: #EBCF42; }
+@utility purple      { color: #5E5C96; }
+@utility purple-bg   { background-color: #5E5C96; }
+
+/* ─── Components ─────────────────────────────────────────── */
+@utility nav-line {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #EBCF42;
+    transition: width 0.3s ease;
+  }
+  &:hover::after { width: 100%; }
+}
+
+@utility portfolio-card {
+  transition: all 0.4s ease;
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 48px rgba(35,103,177,0.2);
+  }
+}
+
+@utility plan-card {
+  transition: all 0.3s ease;
+  &:hover { transform: translateY(-4px); }
+}
+
+/* ─── Animations ─────────────────────────────────────────── */
+@utility fade-up   { animation: fadeUp 0.8s ease 0.0s forwards; }
+@utility fade-up-2 { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
+@utility fade-up-3 { animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; }
+@utility fade-up-4 { animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@utility marquee-track { animation: marquee 20s linear infinite; }
+
+/* ─── Base ───────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #0A0A0A;
+  background: #0A0A0A;
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .max-w-6xl  { max-width: 72rem; }
+  .max-w-4xl  { max-width: 56rem; }
+  .max-w-3xl  { max-width: 48rem; }
+  .mx-auto    { margin-left: auto; margin-right: auto; }
+  .container  {
+    width: 100%;
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
