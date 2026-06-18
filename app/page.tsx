@@ -55,8 +55,8 @@ const portfolio = [
 const planos = [
   {
     nome: "Silver",
-    precoAnterior: "199",
-    preco: "149",
+    precoAnterior: "249",
+    preco: "199",
     foto: "Fornecida pelo cliente",
     copy: "Básico incluso",
     itens: [
@@ -72,8 +72,8 @@ const planos = [
   },
   {
     nome: "Gold",
-    precoAnterior: "329",
-    preco: "249",
+    precoAnterior: "399",
+    preco: "299",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
     itens: [
@@ -90,9 +90,9 @@ const planos = [
   },
   {
     nome: "Premium",
-    precoAnterior: "499",
-    preco: "389",
-    foto: "Fornecida pelo cliente",
+    precoAnterior: "599",
+    preco: "459",
+    foto: "Equipe profissional inclusa",
     copy: "Profissional incluso",
     itens: [
       "Site completo até 10 seções",
@@ -112,7 +112,7 @@ const planos = [
 const faq = [
   { p: "Quanto tempo leva para ficar pronto?",        r: "Silver: 5 dias úteis. Gold: 10 dias úteis. Premium: 15 dias úteis. O prazo começa após a aprovação do briefing e recebimento dos materiais." },
   { p: "O site fica no ar depois que eu pagar?",      r: "Sim. O site fica hospedado pela Hefezzia enquanto o plano mensal estiver ativo. Se cancelar, você pode adquirir o código-fonte e hospedar onde quiser." },
-  { p: "Preciso fornecer textos e fotos?",            r: "As fotos podem ser fornecidas pelo cliente ou pela equipe profissional contratada (serviço adicional). O copywriting está incluso em todos os planos." },
+  { p: "Preciso fornecer textos e fotos?",            r: "Nos planos Silver e Gold, o cliente fornece as fotos. O copywriting está incluso em todos os planos. No Premium, a equipe de fotografia vai até o seu negócio." },
   { p: "Posso pedir alterações depois?",              r: "Sim, a manutenção e o suporte técnico contínuo já estão inclusos no valor da sua assinatura mensal, garantindo atualizações regulares e ajustes conforme necessário." },
   { p: "Vocês atendem fora do Brasil?",               r: "Atendemos em todo o MUNDO! Trabalhamos de forma 100% remota. Para fotografia presencial, atuamos nas principais capitais e regiões metropolitanas." },
 ];
@@ -122,12 +122,26 @@ export default function Home() {
   const [menuOpen, setMenuOpen]   = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [showTop, setShowTop]     = useState(false);
+  const [phoneValue, setPhoneValue] = useState("");
 
   useEffect(() => {
     const fn = () => { setScrolled(window.scrollY > 40); setShowTop(window.scrollY > 300); };
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
+  // Formatação em tempo real do campo de telefone/WhatsApp
+  const handlePhone = (e: React.FormEvent<HTMLInputElement>) => {
+    let input = e.currentTarget.value.replace(/\D/g, "");
+    if (input.length > 11) input = input.substring(0, 11);
+
+    if (input.length > 2) {
+      input = `(${input.substring(0, 2)}) ${input.substring(2)}`;
+    } else if (input.length > 0) {
+      input = `(${input}`;
+    }
+    setPhoneValue(input);
+  };
 
   const navLinks = ["Início","Portfólio","Planos","FAQ","Contato"];
 
@@ -136,7 +150,7 @@ export default function Home() {
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed right-4 z-[999] yellow-bg text-[#0A0A0A] w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
+        className={`fixed right-4 z-[999] yellow-bg text-[#0A0A0A] w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg cursor-pointer transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
         ↑
       </button>
 
@@ -149,16 +163,16 @@ export default function Home() {
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
-                className="font-body text-xs tracking-widest uppercase text-white/50 hover:text-white nav-line transition-colors">
+                className="font-body text-xs tracking-widest uppercase text-white/50 hover:text-white nav-line cursor-pointer transition-colors">
                 {link}
               </a>
             ))}
           </nav>
           <a href="#contato"
-            className="hidden lg:flex items-center gap-2 yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity">
+            className="hidden lg:flex items-center gap-2 yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-2.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
             Solicitar Orçamento
           </a>
-          <button className="lg:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="lg:hidden text-white cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
             <span className="material-icons">{menuOpen ? "close" : "menu"}</span>
           </button>
         </div>
@@ -166,10 +180,10 @@ export default function Home() {
           <div className="lg:hidden bg-[#111] border-t border-white/5 px-6 py-6 space-y-4">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
-                className="block font-body text-xs tracking-widest uppercase text-white/50 hover:text-white"
+                className="block font-body text-xs tracking-widest uppercase text-white/50 hover:text-white cursor-pointer"
                 onClick={() => setMenuOpen(false)}>{link}</a>
             ))}
-            <a href="#contato" className="block yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full"
+            <a href="#contato" className="block yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
               onClick={() => setMenuOpen(false)}>Solicitar Orçamento</a>
           </div>
         )}
@@ -177,12 +191,9 @@ export default function Home() {
 
       {/* ─── HERO ────────────────────────────────────────── */}
       <section id="início" className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden">
-
-        {/* Glow de fundo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl pointer-events-none"
           style={{ background: "radial-gradient(circle, #2367B1, #5E5C96, transparent)" }} />
 
-        {/* Texto fantasma */}
         <div className="absolute bottom-0 right-0 pointer-events-none select-none overflow-hidden">
           <p className="font-display font-bold text-[20vw] text-white/3 leading-none">ZZ</p>
         </div>
@@ -201,17 +212,16 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
             <a href="#portfolio"
-              className="yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-8 py-4 rounded-full hover:opacity-90 transition-opacity">
+              className="yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-8 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
               Ver Portfólio
             </a>
             <a href="#planos"
-              className="border border-white/15 text-white font-body text-sm px-8 py-4 rounded-full hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
+              className="border border-white/15 text-white font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
               Ver Planos
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-t border-white/8 fade-up-4">
+          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-white/8 fade-up-4">
             {[["6+","Nichos atendidos"],["100%","Responsivo"],["5 dias","Entrega Silver"]].map(([n,l]) => (
               <div key={l}>
                 <p className="font-display font-bold text-3xl yellow">{n}</p>
@@ -249,8 +259,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {portfolio.map((item, i) => (
               <a key={i} href={item.url} target="_blank" rel="noopener noreferrer"
-                className="portfolio-card group block rounded-2xl overflow-hidden border border-white/8">
-                {/* Preview colorido */}
+                className="portfolio-card group block rounded-2xl overflow-hidden border border-white/8 cursor-pointer">
                 <div className="h-48 relative overflow-hidden flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${item.cor}, ${item.acento}22)` }}>
                   <div className="absolute inset-0 opacity-20"
@@ -263,7 +272,6 @@ export default function Home() {
                     <span className="material-icons text-white text-sm">open_in_new</span>
                   </div>
                 </div>
-                {/* Info */}
                 <div className="bg-[#111] px-5 py-4 flex items-center justify-between">
                   <div>
                     <p className="font-body font-medium text-sm text-white">{item.titulo}</p>
@@ -348,7 +356,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <a href="#contato"
-                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
+                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
                   Solicitar Orçamento
                 </a>
               </div>
@@ -362,6 +370,7 @@ export default function Home() {
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
+            <p className="font-body text-xs text-white/40 mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
           </div>
         </div>
       </section>
@@ -377,7 +386,7 @@ export default function Home() {
             {faq.map((item, i) => (
               <div key={i}>
                 <button onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                  className="w-full flex items-start justify-between py-6 text-left gap-6">
+                  className="w-full flex items-start justify-between py-6 text-left gap-6 cursor-pointer">
                   <span className="font-body font-medium text-white">{item.p}</span>
                   <span className={`material-icons yellow transition-transform duration-300 flex-shrink-0 mt-0.5 ${activeFaq === i ? "rotate-45" : ""}`}>add</span>
                 </button>
@@ -402,7 +411,7 @@ export default function Home() {
             Sem enrolação. Sem burocracia. Você foca no seu negócio e a gente cuida da sua presença digital.
           </p>
           <a href="#contato"
-            className="inline-block yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-10 py-4 rounded-full hover:opacity-90 transition-opacity">
+            className="inline-block yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-10 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
             Solicitar Orçamento Gratuito
           </a>
         </div>
@@ -423,8 +432,8 @@ export default function Home() {
               </p>
               <div className="space-y-5">
                 {[
-                  { icone: "phone",    titulo: "WhatsApp",    info: "(00) 00000-0000" },
-                  { icone: "mail",     titulo: "E-mail",      info: "contato@email.com" },
+                  { icone: "phone",    titulo: "WhatsApp",    info: "(22) 99617-3383" },
+                  { icone: "mail",     titulo: "E-mail",      info: "hefezzia@gmail.com" },
                   { icone: "schedule", titulo: "Atendimento", info: "Seg–Sex: 9h–18h" },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
@@ -437,7 +446,7 @@ export default function Home() {
                 ))}
               </div>
               <a href="https://wa.me/00000000000"
-                className="inline-flex items-center gap-3 yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-6 py-4 rounded-full hover:opacity-90 transition-opacity mt-8">
+                className="inline-flex items-center gap-3 yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-6 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity mt-8">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.549 4.109 1.514 5.845L.057 23.272a.75.75 0 00.921.921l5.442-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.523-5.185-1.432l-.371-.221-3.853 1.03 1.034-3.837-.229-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
@@ -458,21 +467,18 @@ export default function Home() {
               <input type="email" placeholder="E-mail *" required
                 className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
               
-              {/* WhatsApp: Não obrigatório para envio, mas se digitar, valida apenas números + DDD (mínimo 10 dígitos) */}
-              <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" pattern="^[0-9]{10,11}$"
-                onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "")}
-                title="Digite apenas números contendo o DDD (Ex: 22999998888)"
+              <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
                 className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
               
-              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
-                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 149/mês</option>
-                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 249/mês</option>
-                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 389/mês</option>
+                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 199/mês</option>
+                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 299/mês</option>
+                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 459/mês</option>
                 <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
               </select>
               
-              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[#0A0A0A]">Segmento do negócio *</option>
                 <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
                 <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
@@ -486,7 +492,7 @@ export default function Home() {
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
               
-              <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4">
+              <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
                 Enviar Mensagem
               </button>
               <p className="font-body text-xs text-white/25 text-center">
@@ -507,7 +513,7 @@ export default function Home() {
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
           </p>
           <p className="font-body text-xs text-white/25">
-            contato@email.com · (00) 00000-0000
+            hefezzia@gmail.com · (22) 99617-3383
           </p>
         </div>
       </footer>
