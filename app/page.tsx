@@ -55,8 +55,8 @@ const portfolio = [
 const planos = [
   {
     nome: "Silver",
-    precoAnterior: "249",
-    preco: "199",
+    precoAnterior: "399,90",
+    preco: "199,90",
     foto: "Fornecida pelo cliente",
     copy: "Básico incluso",
     itens: [
@@ -72,8 +72,8 @@ const planos = [
   },
   {
     nome: "Gold",
-    precoAnterior: "399",
-    preco: "299",
+    precoAnterior: "499,90",
+    preco: "299,90",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
     itens: [
@@ -90,8 +90,8 @@ const planos = [
   },
   {
     nome: "Premium",
-    precoAnterior: "599",
-    preco: "459",
+    precoAnterior: "699,90",
+    preco: "499,90",
     foto: "Equipe profissional inclusa",
     copy: "Profissional incluso",
     itens: [
@@ -472,9 +472,9 @@ export default function Home() {
               
               <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
-                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 199/mês</option>
-                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 299/mês</option>
-                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 459/mês</option>
+                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 199,90/mês</option>
+                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 299,90/mês</option>
+                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 499,90/mês</option>
                 <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
               </select>
               
