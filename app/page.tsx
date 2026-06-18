@@ -55,7 +55,8 @@ const portfolio = [
 const planos = [
   {
     nome: "Silver",
-    preco: "1.200",
+    precoAnterior: "199",
+    preco: "149",
     foto: "Fornecida pelo cliente",
     copy: "Básico incluso",
     itens: [
@@ -70,7 +71,8 @@ const planos = [
   },
   {
     nome: "Gold",
-    preco: "2.000",
+    precoAnterior: "329",
+    preco: "249",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
     itens: [
@@ -86,7 +88,8 @@ const planos = [
   },
   {
     nome: "Premium",
-    preco: "3.200",
+    precoAnterior: "499",
+    preco: "389",
     foto: "Equipe profissional inclusa",
     copy: "Profissional incluso",
     itens: [
@@ -103,27 +106,6 @@ const planos = [
   },
 ];
 
-const manutencao = [
-  {
-    nome: "Essencial",
-    preco: "150",
-    creditos: "2 créditos/mês",
-    itens: ["Hospedagem e domínio ativos","2 créditos de alteração/mês","Suporte por WhatsApp"],
-  },
-  {
-    nome: "Profissional",
-    preco: "280",
-    creditos: "6 créditos/mês",
-    itens: ["Hospedagem e domínio ativos","6 créditos de alteração/mês","Suporte prioritário","Relatório mensal de acessos"],
-  },
-  {
-    nome: "Completo",
-    preco: "450",
-    creditos: "12 créditos/mês",
-    itens: ["Hospedagem e domínio ativos","12 créditos de alteração/mês","Suporte 7 dias/semana","Relatório mensal de acessos","Backup mensal do código"],
-  },
-];
-
 const faq = [
   { p: "Quanto tempo leva para ficar pronto?",        r: "Silver: 5 dias úteis. Gold: 10 dias úteis. Premium: 15 dias úteis. O prazo começa após a aprovação do briefing e recebimento dos materiais." },
   { p: "O site fica no ar depois que eu pagar?",      r: "Sim. O site fica hospedado pela Hefezzia enquanto o plano de manutenção estiver ativo. Se cancelar, você pode adquirir o código-fonte e hospedar onde quiser." },
@@ -137,7 +119,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen]   = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [showTop, setShowTop]     = useState(false);
-  const [activeTab, setActiveTab] = useState<"desenvolvimento" | "manutencao">("desenvolvimento");
 
   useEffect(() => {
     const fn = () => { setScrolled(window.scrollY > 40); setShowTop(window.scrollY > 300); };
@@ -331,16 +312,6 @@ export default function Home() {
             <h2 className="font-display font-bold text-5xl md:text-6xl text-white">Planos</h2>
           </div>
 
-          {/* Tabs */}
-          <div className="flex justify-center gap-2 mb-12">
-            {(["desenvolvimento","manutencao"] as const).map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab)}
-                className={`font-body text-xs tracking-widest uppercase px-6 py-2.5 rounded-full transition-all ${activeTab === tab ? "yellow-bg text-[#0A0A0A] font-semibold" : "border border-white/15 text-white/50 hover:text-white"}`}>
-                {tab === "desenvolvimento" ? "Desenvolvimento" : "Manutenção Mensal"}
-              </button>
-            ))}
-          </div>
-
           {/* Planos de Desenvolvimento */}
           {activeTab === "desenvolvimento" && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -352,9 +323,14 @@ export default function Home() {
                     </div>
                   )}
                   <p className="font-body text-xs tracking-widest uppercase text-white/50 mb-2">{p.nome}</p>
+                  {/* Valor maior cortado para gerar ancoragem visual */}
+                  <div className="font-body text-xs text-white/30 line-through -mb-1">
+                    R$ {p.precoAnterior}/mês
+                  </div>
                   <div className="flex items-end gap-1 mb-2">
                     <span className="font-body text-sm text-white/40">R$</span>
                     <span className="font-display font-bold text-5xl text-white">{p.preco}</span>
+                    <span className="font-body text-xs text-white/40 mb-1">/mês</span>
                   </div>
                   <div className="flex flex-col gap-1 mb-6">
                     <span className="font-body text-xs text-white/50">📸 Fotos: {p.foto}</span>
@@ -375,44 +351,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-          )}
-
-          {/* Planos de Manutenção */}
-          {activeTab === "manutencao" && (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                {manutencao.map((p, i) => (
-                  <div key={i} className="plan-card bg-[#111] border border-white/8 rounded-2xl p-8">
-                    <p className="font-body text-xs tracking-widest uppercase text-white/50 mb-2">{p.nome}</p>
-                    <div className="flex items-end gap-1 mb-1">
-                      <span className="font-body text-sm text-white/40">R$</span>
-                      <span className="font-display font-bold text-5xl text-white">{p.preco}</span>
-                      <span className="font-body text-sm text-white/40 mb-1">/mês</span>
-                    </div>
-                    <p className="font-body text-xs yellow mb-6">{p.creditos}</p>
-                    <ul className="space-y-2.5 mb-8">
-                      {p.itens.map((item, j) => (
-                        <li key={j} className="flex items-start gap-2">
-                          <span className="material-icons yellow text-sm mt-0.5 flex-shrink-0">check</span>
-                          <span className="font-body text-sm text-white/70">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <a href="#contato"
-                      className="block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
-                      Contratar
-                    </a>
-                  </div>
-                ))}
-              </div>
-              <div className="bg-[#111] border border-white/8 rounded-2xl p-6 text-center max-w-2xl mx-auto">
-                <p className="font-body text-sm text-white/60 leading-relaxed">
-                  <span className="text-white font-medium">1 crédito</span> = alteração simples (texto, foto, cor, horário) ·
-                  <span className="text-white font-medium"> 2 créditos</span> = alteração complexa (nova seção, animação, galeria) ·
-                  Crédito extra avulso: <span className="yellow font-medium">R$ 80</span>
-                </p>
-              </div>
-            </>
           )}
 
           {/* Foto avulsa */}
@@ -461,7 +399,7 @@ export default function Home() {
             <span className="yellow">ainda essa semana.</span>
           </h2>
           <p className="font-body text-white/70 mb-10 max-w-lg mx-auto">
-            Sem enrolação. Sem burocracia. Você foca no seu negócio — a gente cuida da sua presença digital.
+            Sem enrolação. Sem burocracia. Você foca no seu negócio e a gente cuida da sua presença digital.
           </p>
           <a href="#contato"
             className="inline-block yellow-bg text-[#0A0A0A] font-body font-semibold text-sm px-10 py-4 rounded-full hover:opacity-90 transition-opacity">
@@ -481,7 +419,7 @@ export default function Home() {
                 <span className="yellow">incrível juntos?</span>
               </h2>
               <p className="font-body text-white/50 leading-relaxed max-w-sm mb-12">
-                Responderemos em até 4 horas úteis. Se preferir algo mais rápido, fala direto pelo WhatsApp.
+                Responderemos em até 4 horas úteis. Se preferir algo mais rápido, envie uma mensagem pelo WhatsApp.
               </p>
               <div className="space-y-5">
                 {[
@@ -508,41 +446,54 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="space-y-5">
-              <input type="text" placeholder="Nome completo"
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              <input type="text" placeholder="Nome do negócio"
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              <input type="email" placeholder="E-mail"
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              <input type="tel" placeholder="WhatsApp"
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              <select className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
-                <option value="" className="bg-[#0A0A0A]">Plano de interesse</option>
-                <option className="bg-[#0A0A0A]">Silver — R$ 1.200</option>
-                <option className="bg-[#0A0A0A]">Gold — R$ 2.000</option>
-                <option className="bg-[#0A0A0A]">Premium — R$ 3.200</option>
-                <option className="bg-[#0A0A0A]">Ainda não sei</option>
-              </select>
-              <select className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
-                <option value="" className="bg-[#0A0A0A]">Segmento do negócio</option>
-                <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
-                <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
-                <option className="bg-[#0A0A0A]">Saúde / Estética</option>
-                <option className="bg-[#0A0A0A]">Fitness / Personal</option>
-                <option className="bg-[#0A0A0A]">Jurídico / Contabilidade</option>
-                <option className="bg-[#0A0A0A]">Pet Shop / Veterinário</option>
-                <option className="bg-[#0A0A0A]">Outro</option>
-              </select>
-              <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
-              <button className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4">
-                Enviar Mensagem
-              </button>
-              <p className="font-body text-xs text-white/25 text-center">
-                Respondemos em até 4 horas úteis. Seus dados não são compartilhados.
-              </p>
-            </div>
+            <form onSubmit={(e) => {
+                // Evita o envio se o formulário for inválido
+                if (!e.currentTarget.checkValidity()) e.preventDefault();
+              }} className="space-y-5">
+                <input type="text" placeholder="Nome completo *" required
+                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+                
+                <input type="text" placeholder="Nome do negócio *" required
+                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+                
+                <input type="email" placeholder="E-mail *" required
+                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+                
+                {/* WhatsApp: Não obrigatório para envio, mas se digitar, valida apenas números + DDD (mínimo 10 dígitos) */}
+                <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" pattern="^[0-9]{10,11}$"
+                  onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "")}
+                  title="Digite apenas números contendo o DDD (Ex: 22999998888)"
+                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+                
+                <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+                  <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
+                  <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 149/mês</option>
+                  <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 249/mês</option>
+                  <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 389/mês</option>
+                  <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
+                </select>
+                
+                <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+                  <option value="" className="bg-[#0A0A0A]">Segmento do negócio *</option>
+                  <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
+                  <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
+                  <option className="bg-[#0A0A0A]">Saúde / Estética</option>
+                  <option className="bg-[#0A0A0A]">Fitness / Personal</option>
+                  <option className="bg-[#0A0A0A]">Jurídico / Contabilidade</option>
+                  <option className="bg-[#0A0A0A]">Pet Shop / Veterinário</option>
+                  <option className="bg-[#0A0A0A]">Outro</option>
+                </select>
+                
+                <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
+                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
+                
+                <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4">
+                  Enviar Mensagem
+                </button>
+                <p className="font-body text-xs text-white/25 text-center">
+                  Respondemos em até 4 hours úteis. Seus dados não são compartilhados.
+                </p>
+              </form>
           </div>
         </div>
       </section>
@@ -554,7 +505,7 @@ export default function Home() {
             Hefez<span className="yellow">zia</span>
           </div>
           <p className="font-body text-xs text-white/25">
-            © 2024 · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
+            © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
           </p>
           <p className="font-body text-xs text-white/25">
             contato@email.com · (00) 00000-0000
