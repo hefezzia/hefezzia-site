@@ -207,7 +207,7 @@ export default function Home() {
             um site que <span className="yellow">converte.</span>
           </h1>
           <p className="font-body text-white/55 text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
-            Criamos sites profissionais para pequenos negócios em todo o Brasil — rápidos, bonitos e com domínio próprio. Do briefing ao ar em dias.
+            Criamos sites profissionais para pequenos negócios em todo o MUNDO! Sites rápidos, bonitos e com domínio próprio. Do briefing ao ar em poucos dias.
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
             <a href="#portfolio"
