@@ -307,65 +307,25 @@ export default function Home() {
       {/* ─── PLANOS ──────────────────────────────────────── */}
       <section id="planos" className="py-28 bg-[#0A0A0A]">
         <div className="container">
-          <div className="text-center mb-10">
-            <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Investimento</p>
-            <h2 className="font-display font-bold text-5xl md:text-6xl text-white">Planos</h2>
+          <div className="text-center mb-16">
+            <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Investimento Tudo Incluso</p>
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-white">Planos Mensais</h2>
+            <p className="font-body text-sm text-white/50 mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
           </div>
-
-          {/* Planos de Desenvolvimento */}
-          {activeTab === "desenvolvimento" && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-              {planos.map((p, i) => (
-                <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[#111] border border-white/8"}`}>
-                  {p.destaque && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[#0A0A0A] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
-                      Mais popular
-                    </div>
-                  )}
-                  <p className="font-body text-xs tracking-widest uppercase text-white/50 mb-2">{p.nome}</p>
-                  {/* Valor maior cortado para gerar ancoragem visual */}
-                  <div className="font-body text-xs text-white/30 line-through -mb-1">
-                    R$ {p.precoAnterior}/mês
-                  </div>
-                  <div className="flex items-end gap-1 mb-2">
-                    <span className="font-body text-sm text-white/40">R$</span>
-                    <span className="font-display font-bold text-5xl text-white">{p.preco}</span>
-                    <span className="font-body text-xs text-white/40 mb-1">/mês</span>
-                  </div>
-                  <div className="flex flex-col gap-1 mb-6">
-                    <span className="font-body text-xs text-white/50">📸 Fotos: {p.foto}</span>
-                    <span className="font-body text-xs text-white/50">✍️ Copy: {p.copy}</span>
-                  </div>
-                  <ul className="space-y-2.5 mb-8">
-                    {p.itens.map((item, j) => (
-                      <li key={j} className="flex items-start gap-2">
-                        <span className="material-icons yellow text-sm mt-0.5 flex-shrink-0">check</span>
-                        <span className="font-body text-sm text-white/70">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="#contato"
-                    className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
-                    Solicitar Orçamento
-                  </a>
-                </div>
-              ))}
-            </div>
-          )}
-
+      
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            {planos.map((p, i) => (
+              <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[#111] border border-white/8"}`}>
+              </div>
+            ))}
+          </div>
+      
           {/* Foto avulsa */}
-          <div className="mt-10 bg-[#111] border border-[#EBCF42]/20 rounded-2xl p-6 max-w-2xl mx-auto text-center">
-            <p className="font-body text-xs tracking-widest uppercase yellow mb-2">Serviço adicional</p>
-            <p className="font-body text-white font-medium mb-1">Ensaio Fotográfico Profissional</p>
-            <p className="font-body text-sm text-white/55 mb-3">
-              Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
-            </p>
-            <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
-            <p className="font-body text-xs text-white/40 mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
+          <div className="mt-16 bg-[#111] border border-[#EBCF42]/20 rounded-2xl p-6 max-w-2xl mx-auto text-center">
           </div>
         </div>
       </section>
-
+      
       {/* ─── FAQ ─────────────────────────────────────────── */}
       <section id="faq" className="py-28 bg-[#111]">
         <div className="container max-w-3xl">
