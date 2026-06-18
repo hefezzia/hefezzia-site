@@ -64,7 +64,8 @@ const planos = [
       "Formulário de contato + WhatsApp",
       "Responsivo para celular",
       "Domínio próprio configurado",
-      "Hospedagem inclusa",
+      "Hospedagem e Manutenção inclusas",
+      "Suporte por WhatsApp ativo",
       "1 rodada de revisão",
     ],
     destaque: false,
@@ -81,7 +82,8 @@ const planos = [
       "FAQ, galeria ou planos",
       "Botão flutuante WhatsApp",
       "Domínio próprio configurado",
-      "Hospedagem inclusa",
+      "Hospedagem e Manutenção inclusas",
+      "Suporte por WhatsApp ativo",
       "2 rodadas de revisão",
     ],
     destaque: true,
@@ -98,7 +100,8 @@ const planos = [
       "Copywriting estratégico completo",
       "Equipe de fotografia no local",
       "Domínio próprio configurado",
-      "Hospedagem inclusa",
+      "Hospedagem e Manutenção inclusas",
+      "Suporte prioritário ativo",
       "3 rodadas de revisão",
       "Entrega do código-fonte",
     ],
@@ -108,9 +111,9 @@ const planos = [
 
 const faq = [
   { p: "Quanto tempo leva para ficar pronto?",        r: "Silver: 5 dias úteis. Gold: 10 dias úteis. Premium: 15 dias úteis. O prazo começa após a aprovação do briefing e recebimento dos materiais." },
-  { p: "O site fica no ar depois que eu pagar?",      r: "Sim. O site fica hospedado pela Hefezzia enquanto o plano de manutenção estiver ativo. Se cancelar, você pode adquirir o código-fonte e hospedar onde quiser." },
+  { p: "O site fica no ar depois que eu pagar?",      r: "Sim. O site fica hospedado pela Hefezzia enquanto o plano mensal estiver ativo. Se cancelar, você pode adquirir o código-fonte e hospedar onde quiser." },
   { p: "Preciso fornecer textos e fotos?",            r: "Nos planos Silver e Gold, o cliente fornece as fotos. O copywriting está incluso em todos os planos. No Premium, a equipe de fotografia vai até o seu negócio." },
-  { p: "Posso pedir alterações depois?",              r: "Sim, pelos planos de manutenção mensal. Cada plano tem um número de créditos — 1 crédito para alterações simples, 2 para alterações complexas." },
+  { p: "Posso pedir alterações depois?",              r: "Sim, a manutenção e o suporte técnico contínuo já estão inclusos no valor da sua assinatura mensal, garantindo atualizações regulares e ajustes conforme necessário." },
   { p: "Vocês atendem fora do Brasil?",               r: "Atendemos em todo o MUNDO! Trabalhamos de forma 100% remota. Para fotografia presencial, atuamos nas principais capitais e regiões metropolitanas." },
 ];
 
@@ -208,7 +211,7 @@ export default function Home() {
           </div>
 
           {/* Stats */}
-          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-white/8 fade-up-4">
+          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-t border-white/8 fade-up-4">
             {[["6+","Nichos atendidos"],["100%","Responsivo"],["5 dias","Entrega Silver"]].map(([n,l]) => (
               <div key={l}>
                 <p className="font-display font-bold text-3xl yellow">{n}</p>
@@ -316,12 +319,50 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {planos.map((p, i) => (
               <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[#111] border border-white/8"}`}>
+                {p.destaque && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[#0A0A0A] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
+                    Mais popular
+                  </div>
+                )}
+                <p className="font-body text-xs tracking-widest uppercase text-white/50 mb-2">{p.nome}</p>
+                
+                <div className="font-body text-xs text-white/30 line-through -mb-1">
+                  R$ {p.precoAnterior}/mês
+                </div>
+                <div className="flex items-end gap-1 mb-2">
+                  <span className="font-body text-sm text-white/40">R$</span>
+                  <span className="font-display font-bold text-5xl text-white">{p.preco}</span>
+                  <span className="font-body text-xs text-white/40 mb-1">/mês</span>
+                </div>
+
+                <div className="flex flex-col gap-1 mb-6">
+                  <span className="font-body text-xs text-white/50">📸 Fotos: {p.foto}</span>
+                  <span className="font-body text-xs text-white/50">✍️ Copy: {p.copy}</span>
+                </div>
+                <ul className="space-y-2.5 mb-8">
+                  {p.itens.map((item, j) => (
+                    <li key={j} className="flex items-start gap-2">
+                      <span className="material-icons yellow text-sm mt-0.5 flex-shrink-0">check</span>
+                      <span className="font-body text-sm text-white/70">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a href="#contato"
+                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
+                  Solicitar Orçamento
+                </a>
               </div>
             ))}
           </div>
       
-          {/* Foto avulsa */}
           <div className="mt-16 bg-[#111] border border-[#EBCF42]/20 rounded-2xl p-6 max-w-2xl mx-auto text-center">
+            <p className="font-body text-xs tracking-widest uppercase yellow mb-2">Serviço adicional</p>
+            <p className="font-body text-white font-medium mb-1">Ensaio Fotográfico Profissional</p>
+            <p className="font-body text-sm text-white/55 mb-3">
+              Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
+            </p>
+            <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
+            <p className="font-body text-xs text-white/40 mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
           </div>
         </div>
       </section>
@@ -407,53 +448,52 @@ export default function Home() {
             </div>
 
             <form onSubmit={(e) => {
-                // Evita o envio se o formulário for inválido
                 if (!e.currentTarget.checkValidity()) e.preventDefault();
               }} className="space-y-5">
-                <input type="text" placeholder="Nome completo *" required
-                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-                
-                <input type="text" placeholder="Nome do negócio *" required
-                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-                
-                <input type="email" placeholder="E-mail *" required
-                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-                
-                {/* WhatsApp: Não obrigatório para envio, mas se digitar, valida apenas números + DDD (mínimo 10 dígitos) */}
-                <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" pattern="^[0-9]{10,11}$"
-                  onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "")}
-                  title="Digite apenas números contendo o DDD (Ex: 22999998888)"
-                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-                
-                <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
-                  <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
-                  <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 149/mês</option>
-                  <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 249/mês</option>
-                  <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 389/mês</option>
-                  <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
-                </select>
-                
-                <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
-                  <option value="" className="bg-[#0A0A0A]">Segmento do negócio *</option>
-                  <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
-                  <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
-                  <option className="bg-[#0A0A0A]">Saúde / Estética</option>
-                  <option className="bg-[#0A0A0A]">Fitness / Personal</option>
-                  <option className="bg-[#0A0A0A]">Jurídico / Contabilidade</option>
-                  <option className="bg-[#0A0A0A]">Pet Shop / Veterinário</option>
-                  <option className="bg-[#0A0A0A]">Outro</option>
-                </select>
-                
-                <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
-                  className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
-                
-                <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4">
-                  Enviar Mensagem
-                </button>
-                <p className="font-body text-xs text-white/25 text-center">
-                  Respondemos em até 4 hours úteis. Seus dados não são compartilhados.
-                </p>
-              </form>
+              <input type="text" placeholder="Nome completo *" required
+                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+              
+              <input type="text" placeholder="Nome do negócio *" required
+                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+              
+              <input type="email" placeholder="E-mail *" required
+                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+              
+              {/* WhatsApp: Não obrigatório para envio, mas se digitar, valida apenas números + DDD (mínimo 10 dígitos) */}
+              <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" pattern="^[0-9]{10,11}$"
+                onInput={(e) => e.currentTarget.value = e.currentTarget.value.replace(/\D/g, "")}
+                title="Digite apenas números contendo o DDD (Ex: 22999998888)"
+                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
+              
+              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+                <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
+                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 149/mês</option>
+                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 249/mês</option>
+                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 389/mês</option>
+                <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
+              </select>
+              
+              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none">
+                <option value="" className="bg-[#0A0A0A]">Segmento do negócio *</option>
+                <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
+                <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
+                <option className="bg-[#0A0A0A]">Saúde / Estética</option>
+                <option className="bg-[#0A0A0A]">Fitness / Personal</option>
+                <option className="bg-[#0A0A0A]">Jurídico / Contabilidade</option>
+                <option className="bg-[#0A0A0A]">Pet Shop / Veterinário</option>
+                <option className="bg-[#0A0A0A]">Outro</option>
+              </select>
+              
+              <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
+                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
+              
+              <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4">
+                Enviar Mensagem
+              </button>
+              <p className="font-body text-xs text-white/25 text-center">
+                Respondemos em até 4 horas úteis. Seus dados não são compartilhados.
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -462,7 +502,7 @@ export default function Home() {
       <footer className="py-8 border-t border-white/5 bg-[#050505]">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="font-display font-bold text-xl text-white">
-            Hefez<span className="yellow">zia</span>
+            Hefe<span className="yellow">zz</span>ia
           </div>
           <p className="font-body text-xs text-white/25">
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
