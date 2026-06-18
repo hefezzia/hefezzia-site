@@ -92,7 +92,7 @@ const planos = [
     nome: "Premium",
     precoAnterior: "499",
     preco: "389",
-    foto: "Equipe profissional inclusa",
+    foto: "Fornecida pelo cliente",
     copy: "Profissional incluso",
     itens: [
       "Site completo até 10 seções",
@@ -112,7 +112,7 @@ const planos = [
 const faq = [
   { p: "Quanto tempo leva para ficar pronto?",        r: "Silver: 5 dias úteis. Gold: 10 dias úteis. Premium: 15 dias úteis. O prazo começa após a aprovação do briefing e recebimento dos materiais." },
   { p: "O site fica no ar depois que eu pagar?",      r: "Sim. O site fica hospedado pela Hefezzia enquanto o plano mensal estiver ativo. Se cancelar, você pode adquirir o código-fonte e hospedar onde quiser." },
-  { p: "Preciso fornecer textos e fotos?",            r: "Nos planos Silver e Gold, o cliente fornece as fotos. O copywriting está incluso em todos os planos. No Premium, a equipe de fotografia vai até o seu negócio." },
+  { p: "Preciso fornecer textos e fotos?",            r: "As fotos podem ser fornecidas pelo cliente ou pela equipe profissional contratada (serviço adicional). O copywriting está incluso em todos os planos." },
   { p: "Posso pedir alterações depois?",              r: "Sim, a manutenção e o suporte técnico contínuo já estão inclusos no valor da sua assinatura mensal, garantindo atualizações regulares e ajustes conforme necessário." },
   { p: "Vocês atendem fora do Brasil?",               r: "Atendemos em todo o MUNDO! Trabalhamos de forma 100% remota. Para fotografia presencial, atuamos nas principais capitais e regiões metropolitanas." },
 ];
@@ -362,7 +362,6 @@ export default function Home() {
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
-            <p className="font-body text-xs text-white/40 mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
           </div>
         </div>
       </section>
