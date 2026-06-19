@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght=400;500;600;700;800&family=Inter:wght=300;400;500;600&display=swap');
 
 @import "tailwindcss";
 
@@ -22,6 +22,8 @@
   --border-8:  rgba(255,255,255,0.08);
   --border-15: rgba(255,255,255,0.15);
   --border-20: rgba(255,255,255,0.20);
+  
+  --brand-yellow: #EBCF42;
 }
 
 [data-theme="light"] {
@@ -29,7 +31,7 @@
   --bg-secondary: #FFFFFF;
   --bg-tertiary: #F3F3F0;
   --text-primary: #0A0A0A;
-  
+
   --text-70: rgba(10,10,10,0.80);
   --text-60: rgba(10,10,10,0.70);
   --text-55: rgba(10,10,10,0.65);
@@ -38,7 +40,7 @@
   --text-30: rgba(10,10,10,0.45);
   --text-25: rgba(10,10,10,0.35);
   --text-3:  rgba(10,10,10,0.04);
-  
+
   --border-5:  rgba(10,10,10,0.08);
   --border-8:  rgba(10,10,10,0.12);
   --border-15: rgba(10,10,10,0.20);
@@ -47,37 +49,34 @@
   --brand-yellow: #D1B316;
 }
 
-:root {
-  ...
-  --brand-yellow: #EBCF42;
-}
-
-/* ─── Fonts ──────────────────────────────────────────────── */
+/* ─── Utilities & Components ─────────────────────────────── */
 @utility font-display { font-family: 'Syne', sans-serif; }
 @utility font-body    { font-family: 'Inter', sans-serif; }
 
-/* ─── Brand Colors (fixed, same in both themes) ──────────── */
 @utility blue        { color: #152fb2; }
 @utility blue-bg     { background-color: #152fb2; }
 @utility yellow      { color: var(--brand-yellow); }
-@utility yellow-bg   { background-color: #EBCF42; }
+@utility yellow-bg   { background-color: var(--brand-yellow); }
 @utility purple      { color: #5E5C96; }
 @utility purple-bg   { background-color: #5E5C96; }
 
-/* ─── Components ─────────────────────────────────────────── */
+@utility plan-card-border {
+  border: 1px solid var(--border-8);
+}
+
 @utility nav-line {
   position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #EBCF42;
-    transition: width 0.3s ease;
-  }
   &:hover::after { width: 100%; }
+}
+@utility nav-line::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #EBCF42;
+  transition: width 0.3s ease;
 }
 
 @utility portfolio-card {
@@ -86,17 +85,13 @@
   background: var(--bg-secondary);
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(10,10,10,0.08); 
+    box-shadow: 0 20px 40px rgba(10,10,10,0.08);
   }
 }
 
 @utility plan-card {
   transition: all 0.3s ease;
   &:hover { transform: translateY(-4px); }
-}
-
-@utility plan-card-border {
-  border: 1px solid var(--border-8);
 }
 
 @utility theme-toggle-btn {
@@ -109,6 +104,7 @@
 @utility fade-up-2 { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
 @utility fade-up-3 { animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; }
 @utility fade-up-4 { animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; }
+@utility marquee-track { animation: marquee 20s linear infinite; }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -119,8 +115,6 @@
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
-
-@utility marquee-track { animation: marquee 20s linear infinite; }
 
 /* ─── Base ───────────────────────────────────────────────── */
 * { box-sizing: border-box; }
