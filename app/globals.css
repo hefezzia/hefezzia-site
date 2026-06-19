@@ -24,12 +24,13 @@
   --border-20: rgba(255,255,255,0.20);
   
   --brand-yellow: #EBCF42;
+  --text-on-yellow: #0A0A0A;
 }
 
 [data-theme="light"] {
-  --bg-primary: #FAFAF8;
-  --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F3F3F0;
+  --bg-primary: #F4F4F2;
+  --bg-secondary: #EBEBE8;
+  --bg-tertiary: #E2E2DF;
   --text-primary: #0A0A0A;
 
   --text-70: rgba(10,10,10,0.80);
@@ -41,12 +42,13 @@
   --text-25: rgba(10,10,10,0.35);
   --text-3:  rgba(10,10,10,0.04);
 
-  --border-5:  rgba(10,10,10,0.08);
-  --border-8:  rgba(10,10,10,0.15); /* Aumentado sutilmente para destacar no fundo claro */
-  --border-15: rgba(10,10,10,0.20);
-  --border-20: rgba(10,10,10,0.28);
+  --border-5:  rgba(10,10,10,0.10);
+  --border-8:  rgba(10,10,10,0.14);
+  --border-15: rgba(10,10,10,0.22);
+  --border-20: rgba(10,10,10,0.30);
 
-  --brand-yellow: #C4A200; /* Amarelo escurecido estratégico para dar leitura perfeita no branco */
+  --brand-yellow: #F0D348;
+  --text-on-yellow: #FFFFFF;
 }
 
 /* ─── Utilities & Components ─────────────────────────────── */
@@ -74,7 +76,7 @@
     left: 0;
     width: 0;
     height: 2px;
-    background: #EBCF42;
+    background: var(--brand-yellow);
     transition: width 0.3s ease;
   }
 
@@ -87,8 +89,8 @@
 
 @utility portfolio-card {
   transition: all 0.4s ease;
-  border: 1px solid var(--border-8); /* Garante visibilidade das caixas no modo claro */
-  background: var(--bg-secondary);
+  border: 1px solid var(--border-8);
+  background: var(--bg-tertiary);
   &:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 40px rgba(10,10,10,0.08);
