@@ -291,7 +291,7 @@ export default function Home() {
               <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)] leading-none">Portfólio</h2>
             </div>
             <p className="font-body text-sm text-[var(--text-40)] max-w-xs">
-              Sites reais desenvolvidos pela Hefezzia. Clique para visitar.
+              Sites ilustrativos desenvolvidos pela Hefezzia.
             </p>
           </div>
 
