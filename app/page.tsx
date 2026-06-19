@@ -184,7 +184,7 @@ export default function Home() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--bg-primary)]/95 backdrop-blur border-b border-[var(--border-5)] py-4" : "bg-transparent py-6"}`}>
         <div className="container flex items-center justify-between">
           <div className="font-display font-bold text-xl text-[var(--text-primary)]">
-            Hefe<span className="font-display yellow">zzia</span>
+            Hefe<span className="font-display yellow">zz</span>ia
           </div>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
@@ -545,7 +545,7 @@ export default function Home() {
       <footer className="py-8 border-t border-[var(--border-5)] bg-[var(--bg-tertiary)]">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="font-display font-bold text-xl text-[var(--text-primary)]">
-            Hefe<span className="font-display yellow">zzia</span>
+            Hefe<span className="font-display yellow">zz</span>ia
           </div>
           <p className="font-body text-xs text-[var(--text-25)]">
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
