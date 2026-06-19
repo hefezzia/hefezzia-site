@@ -400,7 +400,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-16 border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center yellow"
+          <div className="mt-16 border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center yellow">
             <p className="font-body text-xs tracking-widest uppercase mb-2">Serviço adicional</p>
             <p className="font-body font-medium mb-1" style={{ color: '#1E212F' }}>Ensaio Fotográfico Profissional</p>
             <p className="font-body text-sm mb-3" style={{ color: '#1E212F' }}>
