@@ -228,7 +228,7 @@ export default function Home() {
           <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]"
             style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}>
             Seu negócio merece<br />
-            um site que <span className="yellow">converte.</span>
+            um site que <span className="font-display yellow">converte.</span>
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
             Criamos sites profissionais para pequenos negócios em todo o MUNDO! Sites rápidos, bonitos e com domínio próprio. Do briefing ao ar em poucos dias.
@@ -349,14 +349,14 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {planos.map((p, i) => (
-              <div key={i} className={`plan-card rounded-2xl p-8 relative ${!p.destaque ? "plan-card-border" : ""} ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)] border border-[var(--border-8)]"}`}>
+              <div key={i} className={`plan-card rounded-2xl p-8 relative ${!p.destaque ? "plan-card-border" : ""} ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)]"}`}>
                 {p.destaque && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[#0A0A0A] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
                     Mais popular
                   </div>
                 )}
                 <p className={`font-body text-xs tracking-widest uppercase mb-2 ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>{p.nome}</p>
-
+          
                 <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
                   R$ {p.precoAnterior}/mês
                 </div>
@@ -365,7 +365,7 @@ export default function Home() {
                   <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>{p.preco}</span>
                   <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>/mês</span>
                 </div>
-
+          
                 <div className="flex flex-col gap-1 mb-6">
                   <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>📸 Fotos: {p.foto}</span>
                   <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>✍️ Copy: {p.copy}</span>
@@ -373,7 +373,7 @@ export default function Home() {
                 <ul className="space-y-2.5 mb-8">
                   {p.itens.map((item, j) => (
                     <li key={j} className="flex items-start gap-2">
-                      <span className={`material-icons text-sm mt-0.5 flex-shrink-0 ${p.destaque ? "yellow" : "text-[var(--brand-yellow)] lg:blue"}`}>check</span>
+                      <span className={`material-icons text-sm mt-0.5 flex-shrink-0 ${p.destaque ? "yellow" : "text-[#152fb2] dark:yellow"}`}>check</span>
                       <span className={`font-body text-sm ${p.destaque ? "text-white/85" : "text-[var(--text-70)]"}`}>{item}</span>
                     </li>
                   ))}
