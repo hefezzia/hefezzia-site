@@ -42,11 +42,11 @@
   --text-3:  rgba(10,10,10,0.04);
 
   --border-5:  rgba(10,10,10,0.08);
-  --border-8:  rgba(10,10,10,0.12);
+  --border-8:  rgba(10,10,10,0.15); /* Aumentado sutilmente para destacar no fundo claro */
   --border-15: rgba(10,10,10,0.20);
   --border-20: rgba(10,10,10,0.28);
 
-  --brand-yellow: #D1B316;
+  --brand-yellow: #C4A200; /* Amarelo escurecido estratégico para dar leitura perfeita no branco */
 }
 
 /* ─── Utilities & Components ─────────────────────────────── */
@@ -87,7 +87,7 @@
 
 @utility portfolio-card {
   transition: all 0.4s ease;
-  border: 1px solid var(--border-5);
+  border: 1px solid var(--border-8); /* Garante visibilidade das caixas no modo claro */
   background: var(--bg-secondary);
   &:hover {
     transform: translateY(-8px);
