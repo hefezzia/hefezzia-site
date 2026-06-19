@@ -349,7 +349,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {planos.map((p, i) => (
-              <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)] border border-[var(--border-8)]"}`}>
+              <div key={i} className={`plan-card rounded-2xl p-8 relative ${!p.destaque ? "plan-card-border" : ""} ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)] border border-[var(--border-8)]"}`}>
                 {p.destaque && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[#0A0A0A] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
                     Mais popular
