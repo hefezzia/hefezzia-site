@@ -125,9 +125,16 @@ export default function Home() {
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
 
+  // Garante a leitura inicial segura do tema para evitar o Hydration Mismatch
   useEffect(() => {
-    const current = document.documentElement.getAttribute("data-theme");
-    if (current === "light" || current === "dark") setTheme(current);
+    const savedTheme = localStorage.getItem("hefezzia-theme") as "dark" | "light" | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      const current = document.documentElement.getAttribute("data-theme") as "dark" | "light" | null;
+      if (current) setTheme(current);
+    }
   }, []);
 
   const toggleTheme = () => {
@@ -138,7 +145,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fn = () => { setScrolled(window.scrollY > 40); setShowTop(window.scrollY > 300); };
+    const fn = () => { 
+      setScrolled(window.scrollY > 40); 
+      setShowTop(window.scrollY > 300); 
+    };
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -174,7 +184,7 @@ export default function Home() {
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--bg-primary)]/95 backdrop-blur border-b border-[var(--border-5)] py-4" : "bg-transparent py-6"}`}>
         <div className="container flex items-center justify-between">
           <div className="font-display font-bold text-xl text-[var(--text-primary)]">
-            Hefe<span className="font-display yellow">zz</span>ia
+            Hefe<span className="font-display yellow">zzia</span>
           </div>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
@@ -245,7 +255,7 @@ export default function Home() {
               Ver Portfólio
             </a>
             <a href="#planos"
-              className="border border-[var(--border-15)] text-[var(--text-primary)] font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
+              className="border border-[var(--border-15)] text-[var(--text-primary)] font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)] transition-all">
               Ver Planos
             </a>
           </div>
@@ -384,7 +394,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <a href="#contato"
-                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[var(--text-on-yellow)] hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
+                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[var(--text-on-yellow)] hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
                   Solicitar Orçamento
                 </a>
               </div>
@@ -487,18 +497,18 @@ export default function Home() {
                 if (!e.currentTarget.checkValidity()) e.preventDefault();
               }} className="space-y-5">
               <input type="text" placeholder="Nome completo *" required value={nameValue} onInput={handleName}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
 
               <input type="text" placeholder="Nome do negócio *" required
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
 
               <input type="email" placeholder="E-mail *" required
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
 
               <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
 
-              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
+              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
                 <option value="silver" className="bg-[var(--bg-primary)]">Silver — R$ 199/mês</option>
                 <option value="gold" className="bg-[var(--bg-primary)]">Gold — R$ 299/mês</option>
@@ -506,7 +516,7 @@ export default function Home() {
                 <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
               </select>
 
-              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
+              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
                 <option className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
                 <option className="bg-[var(--bg-primary)]">Restaurante / Alimentação</option>
@@ -518,7 +528,7 @@ export default function Home() {
               </select>
 
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-25)]" />
 
               <button type="submit" className="w-full yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
                 Enviar Mensagem
