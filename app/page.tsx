@@ -400,16 +400,24 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-16 border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center yellow">
-            <p className="font-body text-xs tracking-widest uppercase mb-2">Serviço adicional</p>
-            <p className="font-body font-medium mb-1" style={{ color: '#1E212F' }}>Ensaio Fotográfico Profissional</p>
-            <p className="font-body text-sm mb-3" style={{ color: '#1E212F' }}>
+          <div className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark"? "bg-[#141414] border-[#222222]" : "bg-[#F3F4F6] border-[#E5E7EB]"}`}>
+            <p className="font-body text-xs tracking-widest uppercase yellow mb-2">
+              Serviço adicional
+            </p>
+            <p className={`font-body font-medium mb-1 text-lg transition-colors duration-300 ${theme === "dark" ? "text-[#FFFFFF]" : "text-[#1F2937]"}`}>
+              Ensaio Fotográfico Profissional
+            </p>
+            <p className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]"}`}>
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
-            <p className="font-display font-bold text-3xl">R$ 1.500</p>
-            <p className="font-body text-xs mt-1" style={{ color: '#D9CC8A' }}>Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
+            <p className="font-display font-bold text-3xl yellow my-3">
+              R$ 1.500
+            </p>
+            <p className={`font-body text-xs mt-1 transition-colors duration-300 ${theme === "dark" ? "text-white/40" : "text-[#9CA3AF]"}`}>
+              Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
+            </p>
           </div>
-        </div>
+          
       </section>
 
       {/* ─── FAQ ─────────────────────────────────────────── */}
