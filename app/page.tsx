@@ -401,13 +401,13 @@ export default function Home() {
           </div>
 
           <div className="mt-16 border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center"
-               style={{ backgroundColor: '#2c44ba' }}>
-            <p className="font-body text-xs tracking-widest uppercase yellow mb-2">Serviço adicional</p>
+               style={{ backgroundColor: 'yellow' }}>
+            <p className="font-body text-xs tracking-widest uppercase mb-2">Serviço adicional</p>
             <p className="font-body font-medium mb-1" style={{ color: '#1E212F' }}>Ensaio Fotográfico Profissional</p>
             <p className="font-body text-sm mb-3" style={{ color: '#1E212F' }}>
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
-            <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
+            <p className="font-display font-bold text-3xl">R$ 1.500</p>
             <p className="font-body text-xs mt-1" style={{ color: '#D9CC8A' }}>Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
           </div>
         </div>
