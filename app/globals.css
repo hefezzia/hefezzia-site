@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght=400;500;600;700;800&family=Inter:wght=300;400;500;600&display=swap');
-/* Importação dos Ícones Oficiais */
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @import "tailwindcss";
@@ -55,8 +54,8 @@
   --border-8:  rgba(10,10,10,0.14);
   --border-15: rgba(10,10,10,0.22);
   --border-20: rgba(10,10,10,0.30);
-  
-  /* Mantém o mesmo tom heriditário e constante */
+
+  /* Herda automaticamente o --brand-yellow do :root */
   --text-on-yellow: #0A0A0A;
 }
 
