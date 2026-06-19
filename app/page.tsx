@@ -373,7 +373,7 @@ export default function Home() {
                 <ul className="space-y-2.5 mb-8">
                   {p.itens.map((item, j) => (
                     <li key={j} className="flex items-start gap-2">
-                      <span className="material-icons yellow text-sm mt-0.5 flex-shrink-0">check</span>
+                      <span className={`material-icons text-sm mt-0.5 flex-shrink-0 ${p.destaque ? "yellow" : "text-[var(--brand-yellow)] lg:blue"}`}>check</span>
                       <span className={`font-body text-sm ${p.destaque ? "text-white/85" : "text-[var(--text-70)]"}`}>{item}</span>
                     </li>
                   ))}
