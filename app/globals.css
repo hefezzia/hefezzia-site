@@ -1,12 +1,55 @@
+@import "tailwindcss";
+
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
-@import "tailwindcss";
+/* ─── Theme Variables ────────────────────────────────────── */
+:root {
+  --bg-primary: #0A0A0A;
+  --bg-secondary: #111111;
+  --bg-tertiary: #050505;
+  --text-primary: #FFFFFF;
+
+  --text-70: rgba(255,255,255,0.70);
+  --text-60: rgba(255,255,255,0.60);
+  --text-55: rgba(255,255,255,0.55);
+  --text-50: rgba(255,255,255,0.50);
+  --text-40: rgba(255,255,255,0.40);
+  --text-30: rgba(255,255,255,0.30);
+  --text-25: rgba(255,255,255,0.25);
+  --text-3:  rgba(255,255,255,0.03);
+
+  --border-5:  rgba(255,255,255,0.05);
+  --border-8:  rgba(255,255,255,0.08);
+  --border-15: rgba(255,255,255,0.15);
+  --border-20: rgba(255,255,255,0.20);
+}
+
+[data-theme="light"] {
+  --bg-primary: #FAFAF8;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F0F0EE;
+  --text-primary: #0A0A0A;
+
+  --text-70: rgba(10,10,10,0.70);
+  --text-60: rgba(10,10,10,0.60);
+  --text-55: rgba(10,10,10,0.55);
+  --text-50: rgba(10,10,10,0.50);
+  --text-40: rgba(10,10,10,0.45);
+  --text-30: rgba(10,10,10,0.35);
+  --text-25: rgba(10,10,10,0.30);
+  --text-3:  rgba(10,10,10,0.05);
+
+  --border-5:  rgba(10,10,10,0.06);
+  --border-8:  rgba(10,10,10,0.10);
+  --border-15: rgba(10,10,10,0.15);
+  --border-20: rgba(10,10,10,0.20);
+}
 
 /* ─── Fonts ──────────────────────────────────────────────── */
 @utility font-display { font-family: 'Syne', sans-serif; }
 @utility font-body    { font-family: 'Inter', sans-serif; }
 
-/* ─── Brand Colors ───────────────────────────────────────── */
+/* ─── Brand Colors (fixed, same in both themes) ──────────── */
 @utility blue        { color: #152fb2; }
 @utility blue-bg     { background-color: #152fb2; }
 @utility yellow      { color: #EBCF42; }
@@ -43,6 +86,11 @@
   &:hover { transform: translateY(-4px); }
 }
 
+@utility theme-toggle-btn {
+  transition: all 0.3s ease;
+  &:hover { transform: scale(1.1); }
+}
+
 /* ─── Animations ─────────────────────────────────────────── */
 @utility fade-up   { animation: fadeUp 0.8s ease 0.0s forwards; }
 @utility fade-up-2 { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
@@ -67,15 +115,17 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Inter', sans-serif;
-  color: #0A0A0A;
-  background: #0A0A0A;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
   .max-w-6xl  { max-width: 72rem; }
   .max-w-4xl  { max-width: 56rem; }
   .max-w-3xl  { max-width: 48rem; }
+  .max-w-2xl  { max-width: 42rem; }
   .mx-auto    { margin-left: auto; margin-right: auto; }
   .container  {
     width: 100%;
