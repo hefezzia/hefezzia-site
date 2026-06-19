@@ -456,7 +456,7 @@ export default function Home() {
                 <span className="font-display yellow">incrível juntos?</span>
               </h2>
               <p className="font-body text-[var(--text-50)] leading-relaxed max-w-sm mb-12">
-                Responderemos em até 4 hours úteis. Se preferir algo mais rápido, envie uma mensagem pelo WhatsApp.
+                Responderemos em até 4 horas úteis. Se preferir algo mais rápido, envie uma mensagem pelo WhatsApp.
               </p>
               <div className="space-y-5">
                 {[
