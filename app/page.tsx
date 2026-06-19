@@ -530,7 +530,7 @@ export default function Home() {
       <footer className="py-8 border-t border-[var(--border-5)] bg-[var(--bg-tertiary)]">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="font-display font-bold text-xl text-[var(--text-primary)]">
-            Hefe<span className="yellow">zz</span>ia
+            Hefe<span className="font-display yellow">zzia</span>
           </div>
           <p className="font-body text-xs text-[var(--text-25)]">
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
