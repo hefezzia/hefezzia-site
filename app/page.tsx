@@ -358,7 +358,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Investimento Tudo Incluso</p>
             <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">Planos Mensais</h2>
-            <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
+            <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e maintenance já inclusos na assinatura.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -399,25 +399,29 @@ export default function Home() {
               </div>
             ))}
           </div>
-
-          <div className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark"? "bg-[#141414] border-[#222222]" : "bg-[#F3F4F6] border-[#E5E7EB]"}`}>
+          
+          <div 
+            className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark"? "bg-[#141414] border-[#222222]" : "bg-[#F3F4F6] border-[#E5E7EB]"}`}>
             <p className="font-body text-xs tracking-widest uppercase yellow mb-2">
               Serviço adicional
             </p>
-            <p className={`font-body font-medium mb-1 text-lg transition-colors duration-300 ${theme === "dark" ? "text-[#FFFFFF]" : "text-[#1F2937]"}`}>
+            <p 
+              className={`font-body font-medium mb-1 text-lg transition-colors duration-300 ${theme === "dark" ? "text-[#FFFFFF]" : "text-[#1F2937]"}`}>
               Ensaio Fotográfico Profissional
             </p>
-            <p className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]"}`}>
+            <p 
+              className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-3xl yellow my-3">
               R$ 1.500
             </p>
-            <p className={`font-body text-xs mt-1 transition-colors duration-300 ${theme === "dark" ? "text-white/40" : "text-[#9CA3AF]"}`}>
+            <p 
+              className={`font-body text-xs mt-1 transition-colors duration-300 ${theme === "dark" ? "text-white/40" : "text-[#9CA3AF]"}`}>
               Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
             </p>
           </div>
-          
+        </div>
       </section>
 
       {/* ─── FAQ ─────────────────────────────────────────── */}
