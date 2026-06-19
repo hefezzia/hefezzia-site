@@ -27,22 +27,29 @@
 [data-theme="light"] {
   --bg-primary: #FAFAF8;
   --bg-secondary: #FFFFFF;
-  --bg-tertiary: #F0F0EE;
+  --bg-tertiary: #F3F3F0;
   --text-primary: #0A0A0A;
+  
+  --text-70: rgba(10,10,10,0.80);
+  --text-60: rgba(10,10,10,0.70);
+  --text-55: rgba(10,10,10,0.65);
+  --text-50: rgba(10,10,10,0.60);
+  --text-40: rgba(10,10,10,0.55);
+  --text-30: rgba(10,10,10,0.45);
+  --text-25: rgba(10,10,10,0.35);
+  --text-3:  rgba(10,10,10,0.04);
+  
+  --border-5:  rgba(10,10,10,0.08);
+  --border-8:  rgba(10,10,10,0.12);
+  --border-15: rgba(10,10,10,0.20);
+  --border-20: rgba(10,10,10,0.28);
 
-  --text-70: rgba(10,10,10,0.70);
-  --text-60: rgba(10,10,10,0.60);
-  --text-55: rgba(10,10,10,0.55);
-  --text-50: rgba(10,10,10,0.50);
-  --text-40: rgba(10,10,10,0.45);
-  --text-30: rgba(10,10,10,0.35);
-  --text-25: rgba(10,10,10,0.30);
-  --text-3:  rgba(10,10,10,0.05);
+  --brand-yellow: #D1B316;
+}
 
-  --border-5:  rgba(10,10,10,0.06);
-  --border-8:  rgba(10,10,10,0.10);
-  --border-15: rgba(10,10,10,0.15);
-  --border-20: rgba(10,10,10,0.20);
+:root {
+  ...
+  --brand-yellow: #EBCF42;
 }
 
 /* ─── Fonts ──────────────────────────────────────────────── */
@@ -52,7 +59,7 @@
 /* ─── Brand Colors (fixed, same in both themes) ──────────── */
 @utility blue        { color: #152fb2; }
 @utility blue-bg     { background-color: #152fb2; }
-@utility yellow      { color: #EBCF42; }
+@utility yellow      { color: var(--brand-yellow); }
 @utility yellow-bg   { background-color: #EBCF42; }
 @utility purple      { color: #5E5C96; }
 @utility purple-bg   { background-color: #5E5C96; }
@@ -75,15 +82,21 @@
 
 @utility portfolio-card {
   transition: all 0.4s ease;
+  border: 1px solid var(--border-5);
+  background: var(--bg-secondary);
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 24px 48px rgba(35,103,177,0.2);
+    box-shadow: 0 20px 40px rgba(10,10,10,0.08); 
   }
 }
 
 @utility plan-card {
   transition: all 0.3s ease;
   &:hover { transform: translateY(-4px); }
+}
+
+@utility plan-card-border {
+  border: 1px solid var(--border-8);
 }
 
 @utility theme-toggle-btn {
