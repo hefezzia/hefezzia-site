@@ -117,11 +117,24 @@ const faq = [
 ];
 
 export default function Home() {
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [showTop, setShowTop]     = useState(false);
+  const [scrolled, setScrolled]     = useState(false);
+  const [menuOpen, setMenuOpen]     = useState(false);
+  const [activeFaq, setActiveFaq]   = useState<number | null>(null);
+  const [showTop, setShowTop]       = useState(false);
   const [phoneValue, setPhoneValue] = useState("");
+  const [theme, setTheme]           = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const current = document.documentElement.getAttribute("data-theme");
+    if (current === "light" || current === "dark") setTheme(current);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("hefezzia-theme", next); } catch {}
+  };
 
   useEffect(() => {
     const fn = () => { setScrolled(window.scrollY > 40); setShowTop(window.scrollY > 300); };
@@ -129,11 +142,9 @@ export default function Home() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
-  // Formatação em tempo real do campo de telefone/WhatsApp
   const handlePhone = (e: React.FormEvent<HTMLInputElement>) => {
     let input = e.currentTarget.value.replace(/\D/g, "");
     if (input.length > 11) input = input.substring(0, 11);
-
     if (input.length > 2) {
       input = `(${input.substring(0, 2)}) ${input.substring(2)}`;
     } else if (input.length > 0) {
@@ -145,7 +156,7 @@ export default function Home() {
   const navLinks = ["Início","Portfólio","Planos","FAQ","Contato"];
 
   return (
-    <main className="font-body bg-[#0A0A0A] text-white">
+    <main className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]">
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -154,15 +165,15 @@ export default function Home() {
       </button>
 
       {/* ─── NAVBAR ──────────────────────────────────────── */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#0A0A0A]/95 backdrop-blur border-b border-white/5 py-4" : "bg-transparent py-6"}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--bg-primary)]/95 backdrop-blur border-b border-[var(--border-5)] py-4" : "bg-transparent py-6"}`}>
         <div className="container flex items-center justify-between">
-          <div className="font-display font-bold text-xl text-white">
+          <div className="font-display font-bold text-xl text-[var(--text-primary)]">
             Hefe<span className="yellow">zz</span>ia
           </div>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
-                className="font-body text-xs tracking-widest uppercase text-white/50 hover:text-white nav-line cursor-pointer transition-colors">
+                className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
                 {link}
               </a>
             ))}
@@ -171,15 +182,15 @@ export default function Home() {
             className="hidden lg:flex items-center gap-2 yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-2.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
             Solicitar Orçamento
           </a>
-          <button className="lg:hidden text-white cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="lg:hidden text-[var(--text-primary)] cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
             <span className="material-icons">{menuOpen ? "close" : "menu"}</span>
           </button>
         </div>
         {menuOpen && (
-          <div className="lg:hidden bg-[#111] border-t border-white/5 px-6 py-6 space-y-4">
+          <div className="lg:hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 py-6 space-y-4">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
-                className="block font-body text-xs tracking-widest uppercase text-white/50 hover:text-white cursor-pointer"
+                className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
                 onClick={() => setMenuOpen(false)}>{link}</a>
             ))}
             <a href="#contato" className="block yellow-bg text-[#0A0A0A] font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
@@ -188,25 +199,38 @@ export default function Home() {
         )}
       </header>
 
+      {/* ─── THEME TOGGLE (abaixo do cabeçalho) ───────────── */}
+      <div className="fixed top-20 lg:top-24 right-4 z-50">
+        <button
+          onClick={toggleTheme}
+          aria-label="Alternar tema claro/escuro"
+          className="theme-toggle-btn cursor-pointer w-10 h-10 rounded-full flex items-center justify-center bg-[var(--bg-secondary)] border border-[var(--border-15)] shadow-lg"
+        >
+          <span className="material-icons text-[var(--text-primary)] text-lg">
+            {theme === "dark" ? "light_mode" : "dark_mode"}
+          </span>
+        </button>
+      </div>
+
       {/* ─── HERO ────────────────────────────────────────── */}
       <section id="início" className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl pointer-events-none"
-          style={{ background: "radial-gradient(circle, #2367B1, #5E5C96, transparent)" }} />
+          style={{ background: "radial-gradient(circle, #152fb2, #5E5C96, transparent)" }} />
 
         <div className="absolute bottom-0 right-0 pointer-events-none select-none overflow-hidden">
-          <p className="font-display font-bold text-[20vw] text-white/3 leading-none">ZZ</p>
+          <p className="font-display font-bold text-[20vw] text-[var(--text-3)] leading-none">ZZ</p>
         </div>
 
         <div className="container relative z-10">
-          <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-6 fade-up">
+          <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-6 fade-up">
             Desenvolvimento Web · Design Digital · Brasil
           </p>
-          <h1 className="font-display font-bold leading-none mb-8 fade-up-2"
+          <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]"
             style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}>
             Seu negócio merece<br />
             um site que <span className="yellow">converte.</span>
           </h1>
-          <p className="font-body text-white/55 text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
+          <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
             Criamos sites profissionais para pequenos negócios em todo o MUNDO! Sites rápidos, bonitos e com domínio próprio. Do briefing ao ar em poucos dias.
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
@@ -215,16 +239,16 @@ export default function Home() {
               Ver Portfólio
             </a>
             <a href="#planos"
-              className="border border-white/15 text-white font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
+              className="border border-[var(--border-15)] text-[var(--text-primary)] font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[#EBCF42] hover:text-[#EBCF42] transition-all">
               Ver Planos
             </a>
           </div>
 
-          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-white/8 fade-up-4">
+          <div className="flex flex-wrap gap-12 mt-16 pt-8 border-t border-[var(--border-8)] fade-up-4">
             {[["6+","Nichos atendidos"],["100%","Responsivo"],["5 dias","Entrega Silver"]].map(([n,l]) => (
               <div key={l}>
                 <p className="font-display font-bold text-3xl yellow">{n}</p>
-                <p className="font-body text-xs text-white/40 uppercase tracking-wider mt-1">{l}</p>
+                <p className="font-body text-xs text-[var(--text-40)] uppercase tracking-wider mt-1">{l}</p>
               </div>
             ))}
           </div>
@@ -243,14 +267,14 @@ export default function Home() {
       </div>
 
       {/* ─── PORTFÓLIO ───────────────────────────────────── */}
-      <section id="portfolio" className="py-28 bg-[#0A0A0A]">
+      <section id="portfolio" className="py-28 bg-[var(--bg-primary)]">
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-4">
             <div>
-              <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Nosso trabalho</p>
-              <h2 className="font-display font-bold text-5xl md:text-6xl text-white leading-none">Portfólio</h2>
+              <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Nosso trabalho</p>
+              <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)] leading-none">Portfólio</h2>
             </div>
-            <p className="font-body text-sm text-white/40 max-w-xs">
+            <p className="font-body text-sm text-[var(--text-40)] max-w-xs">
               Sites reais desenvolvidos pela Hefezzia. Clique para visitar.
             </p>
           </div>
@@ -258,7 +282,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {portfolio.map((item, i) => (
               <a key={i} href={item.url} target="_blank" rel="noopener noreferrer"
-                className="portfolio-card group block rounded-2xl overflow-hidden border border-white/8 cursor-pointer">
+                className="portfolio-card group block rounded-2xl overflow-hidden border border-[var(--border-8)] cursor-pointer">
                 <div className="h-48 relative overflow-hidden flex items-center justify-center"
                   style={{ background: `linear-gradient(135deg, ${item.cor}, ${item.acento}22)` }}>
                   <div className="absolute inset-0 opacity-20"
@@ -271,10 +295,10 @@ export default function Home() {
                     <span className="material-icons text-white text-sm">open_in_new</span>
                   </div>
                 </div>
-                <div className="bg-[#111] px-5 py-4 flex items-center justify-between">
+                <div className="bg-[var(--bg-secondary)] px-5 py-4 flex items-center justify-between">
                   <div>
-                    <p className="font-body font-medium text-sm text-white">{item.titulo}</p>
-                    <p className="font-body text-xs text-white/40">{item.nicho}</p>
+                    <p className="font-body font-medium text-sm text-[var(--text-primary)]">{item.titulo}</p>
+                    <p className="font-body text-xs text-[var(--text-40)]">{item.nicho}</p>
                   </div>
                   <span className="font-body text-xs font-semibold px-3 py-1 rounded-full"
                     style={{ background: `${item.acento}22`, color: item.acento }}>
@@ -288,11 +312,11 @@ export default function Home() {
       </section>
 
       {/* ─── COMO FUNCIONA ───────────────────────────────── */}
-      <section className="py-28 bg-[#111]">
+      <section className="py-28 bg-[var(--bg-secondary)]">
         <div className="container">
           <div className="text-center mb-14">
-            <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Simples assim</p>
-            <h2 className="font-display font-bold text-5xl md:text-6xl text-white">Como funciona</h2>
+            <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Simples assim</p>
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">Como funciona</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -305,9 +329,9 @@ export default function Home() {
                 <div className="w-12 h-12 yellow-bg rounded-full flex items-center justify-center text-[#0A0A0A] font-display font-bold text-lg mb-4">
                   {step.n}
                 </div>
-                {i < 3 && <div className="hidden md:block absolute top-6 left-12 right-0 h-px bg-white/8" />}
-                <h3 className="font-display font-bold text-xl text-white mb-2">{step.t}</h3>
-                <p className="font-body text-sm text-white/50 leading-relaxed">{step.d}</p>
+                {i < 3 && <div className="hidden md:block absolute top-6 left-12 right-0 h-px bg-[var(--border-8)]" />}
+                <h3 className="font-display font-bold text-xl text-[var(--text-primary)] mb-2">{step.t}</h3>
+                <p className="font-body text-sm text-[var(--text-50)] leading-relaxed">{step.d}</p>
               </div>
             ))}
           </div>
@@ -315,82 +339,82 @@ export default function Home() {
       </section>
 
       {/* ─── PLANOS ──────────────────────────────────────── */}
-      <section id="planos" className="py-28 bg-[#0A0A0A]">
+      <section id="planos" className="py-28 bg-[var(--bg-primary)]">
         <div className="container">
           <div className="text-center mb-16">
-            <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Investimento Tudo Incluso</p>
-            <h2 className="font-display font-bold text-5xl md:text-6xl text-white">Planos Mensais</h2>
-            <p className="font-body text-sm text-white/50 mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
+            <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Investimento Tudo Incluso</p>
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">Planos Mensais</h2>
+            <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
           </div>
-      
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {planos.map((p, i) => (
-              <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[#111] border border-white/8"}`}>
+              <div key={i} className={`plan-card rounded-2xl p-8 relative ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)] border border-[var(--border-8)]"}`}>
                 {p.destaque && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[#0A0A0A] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
                     Mais popular
                   </div>
                 )}
-                <p className="font-body text-xs tracking-widest uppercase text-white/50 mb-2">{p.nome}</p>
-                
-                <div className="font-body text-xs text-white/30 line-through -mb-1">
+                <p className={`font-body text-xs tracking-widest uppercase mb-2 ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>{p.nome}</p>
+
+                <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
                   R$ {p.precoAnterior}/mês
                 </div>
                 <div className="flex items-end gap-1 mb-2">
-                  <span className="font-body text-sm text-white/40">R$</span>
-                  <span className="font-display font-bold text-5xl text-white">{p.preco}</span>
-                  <span className="font-body text-xs text-white/40 mb-1">/mês</span>
+                  <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>R$</span>
+                  <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>{p.preco}</span>
+                  <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>/mês</span>
                 </div>
 
                 <div className="flex flex-col gap-1 mb-6">
-                  <span className="font-body text-xs text-white/50">📸 Fotos: {p.foto}</span>
-                  <span className="font-body text-xs text-white/50">✍️ Copy: {p.copy}</span>
+                  <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>📸 Fotos: {p.foto}</span>
+                  <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>✍️ Copy: {p.copy}</span>
                 </div>
                 <ul className="space-y-2.5 mb-8">
                   {p.itens.map((item, j) => (
                     <li key={j} className="flex items-start gap-2">
                       <span className="material-icons yellow text-sm mt-0.5 flex-shrink-0">check</span>
-                      <span className="font-body text-sm text-white/70">{item}</span>
+                      <span className={`font-body text-sm ${p.destaque ? "text-white/85" : "text-[var(--text-70)]"}`}>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <a href="#contato"
-                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-white/20 text-white hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
+                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[#0A0A0A] hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[#EBCF42] hover:text-[#EBCF42]"}`}>
                   Solicitar Orçamento
                 </a>
               </div>
             ))}
           </div>
-      
-          <div className="mt-16 bg-[#111] border border-[#EBCF42]/20 rounded-2xl p-6 max-w-2xl mx-auto text-center">
+
+          <div className="mt-16 bg-[var(--bg-secondary)] border border-[#EBCF42]/20 rounded-2xl p-6 max-w-2xl mx-auto text-center">
             <p className="font-body text-xs tracking-widest uppercase yellow mb-2">Serviço adicional</p>
-            <p className="font-body text-white font-medium mb-1">Ensaio Fotográfico Profissional</p>
-            <p className="font-body text-sm text-white/55 mb-3">
+            <p className="font-body text-[var(--text-primary)] font-medium mb-1">Ensaio Fotográfico Profissional</p>
+            <p className="font-body text-sm text-[var(--text-55)] mb-3">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-3xl yellow">R$ 1.500</p>
-            <p className="font-body text-xs text-white/40 mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
+            <p className="font-body text-xs text-[var(--text-40)] mt-1">Já incluso no Plano Premium · Desconto automático se você fornecer as fotos</p>
           </div>
         </div>
       </section>
-      
+
       {/* ─── FAQ ─────────────────────────────────────────── */}
-      <section id="faq" className="py-28 bg-[#111]">
+      <section id="faq" className="py-28 bg-[var(--bg-secondary)]">
         <div className="container max-w-3xl">
           <div className="mb-14">
-            <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-3">Dúvidas</p>
-            <h2 className="font-display font-bold text-5xl md:text-6xl text-white">FAQ</h2>
+            <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Dúvidas</p>
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">FAQ</h2>
           </div>
-          <div className="divide-y divide-white/8">
+          <div className="divide-y divide-[var(--border-8)]">
             {faq.map((item, i) => (
               <div key={i}>
                 <button onClick={() => setActiveFaq(activeFaq === i ? null : i)}
                   className="w-full flex items-start justify-between py-6 text-left gap-6 cursor-pointer">
-                  <span className="font-body font-medium text-white">{item.p}</span>
+                  <span className="font-body font-medium text-[var(--text-primary)]">{item.p}</span>
                   <span className={`material-icons yellow transition-transform duration-300 flex-shrink-0 mt-0.5 ${activeFaq === i ? "rotate-45" : ""}`}>add</span>
                 </button>
                 <div className={`overflow-hidden transition-all duration-300 ${activeFaq === i ? "max-h-40 pb-6" : "max-h-0"}`}>
-                  <p className="font-body text-sm text-white/55 leading-relaxed">{item.r}</p>
+                  <p className="font-body text-sm text-[var(--text-55)] leading-relaxed">{item.r}</p>
                 </div>
               </div>
             ))}
@@ -417,16 +441,16 @@ export default function Home() {
       </section>
 
       {/* ─── CONTATO ─────────────────────────────────────── */}
-      <section id="contato" className="py-28 bg-[#0A0A0A]">
+      <section id="contato" className="py-28 bg-[var(--bg-primary)]">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
             <div>
-              <p className="font-body text-xs tracking-widest uppercase text-white/40 mb-4">Fale com a gente</p>
-              <h2 className="font-display font-bold text-5xl md:text-6xl text-white leading-none mb-8">
+              <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-4">Fale com a gente</p>
+              <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)] leading-none mb-8">
                 Vamos criar algo<br />
                 <span className="yellow">incrível juntos?</span>
               </h2>
-              <p className="font-body text-white/50 leading-relaxed max-w-sm mb-12">
+              <p className="font-body text-[var(--text-50)] leading-relaxed max-w-sm mb-12">
                 Responderemos em até 4 horas úteis. Se preferir algo mais rápido, envie uma mensagem pelo WhatsApp.
               </p>
               <div className="space-y-5">
@@ -438,8 +462,8 @@ export default function Home() {
                   <div key={i} className="flex items-center gap-4">
                     <span className="material-icons yellow">{item.icone}</span>
                     <div>
-                      <p className="font-body text-xs text-white/30 uppercase tracking-wider">{item.titulo}</p>
-                      <p className="font-body text-sm text-white/70">{item.info}</p>
+                      <p className="font-body text-xs text-[var(--text-30)] uppercase tracking-wider">{item.titulo}</p>
+                      <p className="font-body text-sm text-[var(--text-70)]">{item.info}</p>
                     </div>
                   </div>
                 ))}
@@ -458,43 +482,43 @@ export default function Home() {
                 if (!e.currentTarget.checkValidity()) e.preventDefault();
               }} className="space-y-5">
               <input type="text" placeholder="Nome completo *" required
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+
               <input type="text" placeholder="Nome do negócio *" required
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+
               <input type="email" placeholder="E-mail *" required
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+
               <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-white/25" />
-              
-              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
-                <option value="" className="bg-[#0A0A0A]">Plano de interesse *</option>
-                <option value="silver" className="bg-[#0A0A0A]">Silver — R$ 199/mês</option>
-                <option value="gold" className="bg-[#0A0A0A]">Gold — R$ 299/mês</option>
-                <option value="premium" className="bg-[#0A0A0A]">Premium — R$ 499/mês</option>
-                <option value="nao-sei" className="bg-[#0A0A0A]">Ainda não sei</option>
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors placeholder:text-[var(--text-25)]" />
+
+              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
+                <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
+                <option value="silver" className="bg-[var(--bg-primary)]">Silver — R$ 199/mês</option>
+                <option value="gold" className="bg-[var(--bg-primary)]">Gold — R$ 299/mês</option>
+                <option value="premium" className="bg-[var(--bg-primary)]">Premium — R$ 499/mês</option>
+                <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
               </select>
-              
-              <select required className="w-full bg-transparent border-b border-white/15 text-white/40 px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
-                <option value="" className="bg-[#0A0A0A]">Segmento do negócio *</option>
-                <option className="bg-[#0A0A0A]">Barbearia / Salão</option>
-                <option className="bg-[#0A0A0A]">Restaurante / Alimentação</option>
-                <option className="bg-[#0A0A0A]">Saúde / Estética</option>
-                <option className="bg-[#0A0A0A]">Fitness / Personal</option>
-                <option className="bg-[#0A0A0A]">Jurídico / Contabilidade</option>
-                <option className="bg-[#0A0A0A]">Pet Shop / Veterinário</option>
-                <option className="bg-[#0A0A0A]">Outro</option>
+
+              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors appearance-none cursor-pointer">
+                <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
+                <option className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
+                <option className="bg-[var(--bg-primary)]">Restaurante / Alimentação</option>
+                <option className="bg-[var(--bg-primary)]">Saúde / Estética</option>
+                <option className="bg-[var(--bg-primary)]">Fitness / Personal</option>
+                <option className="bg-[var(--bg-primary)]">Jurídico / Contabilidade</option>
+                <option className="bg-[var(--bg-primary)]">Pet Shop / Veterinário</option>
+                <option className="bg-[var(--bg-primary)]">Outro</option>
               </select>
-              
+
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
-                className="w-full bg-transparent border-b border-white/15 text-white px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-white/25" />
-              
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[#EBCF42] transition-colors resize-none placeholder:text-[var(--text-25)]" />
+
               <button type="submit" className="w-full yellow-bg text-[#0A0A0A] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
                 Enviar Mensagem
               </button>
-              <p className="font-body text-xs text-white/25 text-center">
+              <p className="font-body text-xs text-[var(--text-25)] text-center">
                 Respondemos em até 4 horas úteis. Seus dados não são compartilhados.
               </p>
             </form>
@@ -503,15 +527,15 @@ export default function Home() {
       </section>
 
       {/* ─── FOOTER ──────────────────────────────────────── */}
-      <footer className="py-8 border-t border-white/5 bg-[#050505]">
+      <footer className="py-8 border-t border-[var(--border-5)] bg-[var(--bg-tertiary)]">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-3">
-          <div className="font-display font-bold text-xl text-white">
+          <div className="font-display font-bold text-xl text-[var(--text-primary)]">
             Hefe<span className="yellow">zz</span>ia
           </div>
-          <p className="font-body text-xs text-white/25">
+          <p className="font-body text-xs text-[var(--text-25)]">
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
           </p>
-          <p className="font-body text-xs text-white/25">
+          <p className="font-body text-xs text-[var(--text-25)]">
             hefezzia@gmail.com · (22) 99617-3383
           </p>
         </div>
