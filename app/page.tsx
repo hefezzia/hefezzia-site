@@ -205,17 +205,15 @@ export default function Home() {
             <span className="material-icons">{menuOpen ? "close" : "menu"}</span>
           </button>
         </div>
-        {menuOpen && (
-          <div className="lg:hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 py-6 space-y-4 menu-drop">
-            {navLinks.map(link => (
-              <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
-                className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
-                onClick={() => setMenuOpen(false)}>{link}</a>
-            ))}
-            <a href="#contato" className="block yellow-bg font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
-              onClick={() => setMenuOpen(false)}>Solicitar Orçamento</a>
-          </div>
-        )}
+        <div className={`lg:hidden overflow-hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 transition-all duration-300 ease-in-out space-y-4 ${menuOpen ? "max-h-96 py-6 opacity-100" : "max-h-0 py-0 opacity-0"}`}>
+          {navLinks.map(link => (
+            <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
+              className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
+              onClick={() => setMenuOpen(false)}>{link}</a>
+          ))}
+          <a href="#contato" className="block yellow-bg font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
+            onClick={() => setMenuOpen(false)}>Solicitar Orçamento</a>
+        </div>
       </header>
 
       {/* ─── THEME TOGGLE ────────────────────────────────── */}
