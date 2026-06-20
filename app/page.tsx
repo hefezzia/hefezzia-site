@@ -613,9 +613,9 @@ export default function Home() {
       {/* ─── FOOTER ──────────────────────────────────────── */}
       <footer className="py-8 border-t border-[var(--border-5)] bg-[var(--bg-tertiary)]">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-3">
-          <div className="font-display font-bold text-xl text-[var(--text-primary)]">
+          <a href="/" className="font-display font-bold text-xl text-[var(--text-primary)] cursor-pointer">
             Hefe<span className="font-display yellow">zz</span>ia
-          </div>
+          </a>
           <p className="font-body text-xs text-[var(--text-25)]">
             © {new Date().getFullYear()} · Hefezzia · Desenvolvimento Web · Todos os direitos reservados
           </p>
