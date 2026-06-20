@@ -128,23 +128,7 @@ export default function Home() {
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
   const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
-  const marqueeRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const track = marqueeRef.current;
-    if (!track) return;
-    const ajustarVelocidade = () => {
-      const largura = track.scrollWidth / 2; // largura de UMA cópia do texto
-      if (!largura) return; // evita aplicar duração inválida (0 ou NaN)
-      const pxPorSegundo = window.innerWidth < 768 ? 220 : 140; // mobile mais rápido que desktop
-      track.style.animationDuration = `${largura / pxPorSegundo}s`;
-    };
-    ajustarVelocidade();
-    document.fonts.ready.then(ajustarVelocidade); // remede depois que a fonte Syne carrega de verdade
-    window.addEventListener("resize", ajustarVelocidade);
-    return () => window.removeEventListener("resize", ajustarVelocidade);
-  }, []);
-
+  
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
@@ -283,10 +267,10 @@ export default function Home() {
 
       {/* ─── MARQUEE ─────────────────────────────────────── */}
       <div className="blue-bg py-3 overflow-hidden border-b border-[var(--border-5)]">
-        <div ref={marqueeRef} className="flex marquee-track whitespace-nowrap">
+        <div className="flex marquee-track whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="font-display font-bold text-white text-xl tracking-widest px-8">
-              SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · &nbsp;
+              SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · &nbsp;
             </span>
           ))}
         </div>
