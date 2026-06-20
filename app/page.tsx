@@ -175,7 +175,7 @@ export default function Home() {
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`fixed right-4 z-[999] yellow-bg text-[var(--text-on-yellow)] w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg cursor-pointer transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
+        className={`fixed right-4 z-[999] yellow-bg w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg cursor-pointer transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
         ↑
       </button>
 
@@ -194,7 +194,7 @@ export default function Home() {
             ))}
           </nav>
           <a href="#contato"
-            className="hidden lg:flex items-center gap-2 yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-xs tracking-widest uppercase px-5 py-2.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
+            className="hidden lg:flex items-center gap-2 yellow-bg font-body font-semibold text-xs tracking-widest uppercase px-5 py-2.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
             Solicitar Orçamento
           </a>
           <button className="lg:hidden text-[var(--text-primary)] cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
@@ -208,7 +208,7 @@ export default function Home() {
                 className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
                 onClick={() => setMenuOpen(false)}>{link}</a>
             ))}
-            <a href="#contato" className="block yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
+            <a href="#contato" className="block yellow-bg font-body font-semibold text-xs tracking-widest uppercase px-5 py-3 text-center rounded-full cursor-pointer"
               onClick={() => setMenuOpen(false)}>Solicitar Orçamento</a>
           </div>
         )}
@@ -250,7 +250,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
             <a href="#portfolio"
-              className="yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-sm px-8 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
+              className="yellow-bg font-body font-semibold text-sm px-8 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
               Ver Portfólio
             </a>
             <a href="#planos"
@@ -340,7 +340,7 @@ export default function Home() {
               { n: "04", t: "Site no ar",        d: "Aprovado o site, publicamos com seu domínio próprio. Você já aparece no Google." },
             ].map((step, i) => (
               <div key={i} className="relative">
-                <div className="w-12 h-12 yellow-bg rounded-full flex items-center justify-center text-[var(--text-on-yellow)] font-display font-bold text-lg mb-4">
+                <div className="w-12 h-12 yellow-bg rounded-full flex items-center justify-center font-display font-bold text-lg mb-4">
                   {step.n}
                 </div>
                 {i < 3 && <div className="hidden md:block absolute top-6 left-12 right-0 h-px bg-[var(--border-8)]" />}
@@ -365,7 +365,7 @@ export default function Home() {
             {planos.map((p, i) => (
               <div key={i} className={`plan-card rounded-2xl p-8 relative ${!p.destaque ? "plan-card-border" : ""} ${p.destaque ? "blue-bg border-0 scale-105" : "bg-[var(--bg-secondary)]"}`}>
                 {p.destaque && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg text-[var(--text-on-yellow)] font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 yellow-bg font-body font-bold text-xs px-4 py-1.5 rounded-full tracking-widest uppercase">
                     Mais popular
                   </div>
                 )}
@@ -393,7 +393,7 @@ export default function Home() {
                   ))}
                 </ul>
                 <a href="#contato"
-                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg text-[var(--text-on-yellow)] hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
+                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
                   Solicitar Orçamento
                 </a>
               </div>
@@ -402,7 +402,7 @@ export default function Home() {
 
           {/* CARD DE SERVIÇO ADICIONAL ADAPTÁVEL (Tema Claro / Escuro) */}
           <div className="mt-16 border border-[var(--border-15)] bg-[var(--bg-secondary)] rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300">
-            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold text-[var(--brand-yellow)]">
+            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold yellow">
               Serviço adicional
             </p>
             <h3 className="font-body font-bold mb-1 text-xl text-[var(--text-primary)]">
@@ -411,7 +411,7 @@ export default function Home() {
             <p className="font-body text-sm mb-4 leading-relaxed text-[var(--text-60)]">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
-            <p className="font-display font-bold text-4xl my-3 text-[var(--brand-yellow)]">
+            <p className="font-display font-bold text-4xl my-3 yellow">
               R$ 1.500
             </p>
             <p className="font-body text-xs mt-2 text-[var(--text-40)] font-medium">
@@ -457,8 +457,8 @@ export default function Home() {
             Sem enrolação. Sem burocracia. Você foca no seu negócio e a gente cuida da sua presença digital.
           </p>
           <a href="#contato"
-            className="inline-block yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-sm px-10 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
-            Solicitar Orçamento Gratuito
+            className="inline-block yellow-bg font-body font-semibold text-sm px-10 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
+            ORÇAMENTO GRATUITO
           </a>
         </div>
       </section>
@@ -492,7 +492,7 @@ export default function Home() {
                 ))}
               </div>
               <a href="https://wa.me/5522996173383"
-                className="inline-flex items-center gap-3 yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-sm px-6 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity mt-8">
+                className="inline-flex items-center gap-3 yellow-bg font-body font-semibold text-sm px-6 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity mt-8">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.549 4.109 1.514 5.845L.057 23.272a.75.75 0 00.921.921l5.442-1.453A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.523-5.185-1.432l-.371-.221-3.853 1.03 1.034-3.837-.229-.381A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
@@ -538,7 +538,7 @@ export default function Home() {
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-25)]" />
 
-              <button type="submit" className="w-full yellow-bg text-[var(--text-on-yellow)] font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
+              <button type="submit" className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
                 Enviar Mensagem
               </button>
               <p className="font-body text-xs text-[var(--text-25)] text-center">
