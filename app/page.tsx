@@ -465,18 +465,14 @@ export default function Home() {
             <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-3">
               Ensaio Fotográfico Profissional
             </h3>
-          
-            <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
-              Uma equipe profissional vai até o seu negócio para fotografar o espaço,
-              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
-            </p>
-          
+
             <p className="font-display font-bold text-4xl yellow mb-4">
               R$ 1.500
             </p>
           
-            <p className="font-body text-xs text-[var(--text-40)]">
-              Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
+            <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
+              Uma equipe profissional vai até o seu negócio para fotografar o espaço,
+              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
           
           </div>
