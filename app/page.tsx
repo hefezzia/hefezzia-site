@@ -400,27 +400,23 @@ export default function Home() {
             ))}
           </div>
           
-          <div 
-            className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark"? "bg-[#141414] border-[#222222]" : "bg-[#F3F4F6] border-[#E5E7EB]"}`}>
-            <p className="font-body text-xs tracking-widest uppercase yellow mb-2">
+          <div className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark" ? "bg-[#111111] border-[var(--border-8)]" : "bg-[var(--bg-secondary)] border-[var(--border-15)]"}`}>
+            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold" style={{ color: 'var(--text-yellow)' }}>
               Serviço adicional
             </p>
-            <p 
-              className={`font-body font-medium mb-1 text-lg transition-colors duration-300 ${theme === "dark" ? "text-[#FFFFFF]" : "text-[#1F2937]"}`}>
+            <h3 className="font-body font-bold mb-1 text-xl text-[var(--text-primary)]">
               Ensaio Fotográfico Profissional
-            </p>
-            <p className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]"}`}>
+            </h3>
+            <p className="font-body text-sm mb-4 leading-relaxed text-[var(--text-60)]">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
-            <p className="font-display font-bold text-3xl yellow my-3">
+            <p className="font-display font-bold text-4xl my-3" style={{ color: 'var(--text-yellow)' }}>
               R$ 1.500
             </p>
-            <p 
-              className={`font-body text-xs mt-1 transition-colors duration-300 ${theme === "dark" ? "text-white/40" : "text-[#9CA3AF]"}`}>
+            <p className="font-body text-xs mt-2 text-[var(--text-40)] font-medium">
               Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
             </p>
           </div>
-        </div>
       </section>
 
       {/* ─── FAQ ─────────────────────────────────────────── */}
