@@ -186,9 +186,9 @@ export default function Home() {
       {/* ─── NAVBAR ──────────────────────────────────────── */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[var(--bg-primary)]/95 backdrop-blur border-b border-[var(--border-5)] py-4" : "bg-transparent py-6"}`}>
         <div className="container flex items-center justify-between">
-          <div className="font-display font-bold text-xl text-[var(--text-primary)]">
+          <a href="/" className="font-display font-bold text-xl text-[var(--text-primary)] cursor-pointer">
             Hefe<span className="font-display yellow">zz</span>ia
-          </div>
+          </a>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
