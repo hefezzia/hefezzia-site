@@ -132,13 +132,7 @@
 @utility marquee-track {
   width: max-content;
   display: flex;
-  animation: marquee 60s linear infinite;
-}
-
-@media (max-width: 767px) {
-  .marquee-track {
-    animation-duration: 70s;
-  }
+  animation: marquee 80s linear infinite;
 }
 
 @keyframes fadeUp {
