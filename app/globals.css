@@ -60,9 +60,6 @@
   --border-8:  rgba(10,10,10,0.14);
   --border-15: rgba(10,10,10,0.22);
   --border-20: rgba(10,10,10,0.30);
-
-  /* Dourado mais escuro, só pra texto direto sobre fundo claro */
-  --yellow-text: #806000;
 }
 
 /* ─── Fontes ──────────────────────────────────────────────── */
