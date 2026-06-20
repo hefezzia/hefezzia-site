@@ -130,9 +130,9 @@
 @utility fade-up-4 { animation: fadeUp 0.8s ease 0.6s forwards; opacity: 0; }
 
 /* Velocidade do texto rolante: mais rápido no mobile que no desktop */
-@utility marquee-track { animation: marquee 14s linear infinite; }
+@utility marquee-track { animation: marquee 20s linear infinite; }
 @media (max-width: 767px) {
-  .marquee-track { animation-duration: 6s; }
+  .marquee-track { animation-duration: 20s; }
 }
 
 @keyframes fadeUp {
