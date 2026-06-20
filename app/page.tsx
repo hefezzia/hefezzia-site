@@ -472,7 +472,7 @@ export default function Home() {
           
             <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço,
-              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
+              produtos e equipe. Fotos entregues prontas para o site e redes sociais.
             </p>
           
           </div>
