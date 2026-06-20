@@ -470,7 +470,7 @@ export default function Home() {
             <div>
               <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-4">Fale com a gente</p>
               <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)] leading-none mb-8">
-                Vamos criar algo<br />
+                Vamos criar algo
                 <span className="font-display yellow">incrível juntos?</span>
               </h2>
               <p className="font-body text-[var(--text-50)] leading-relaxed max-w-sm mb-12">
