@@ -1,6 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
-
 @import "tailwindcss";
+
+/* As fontes Syne e Inter NÃO são mais carregadas aqui via @import url(...).
+   Esse método falhava em produção porque o otimizador de CSS do Next.js
+   pode descartar @import remotos durante o build, deixando a fonte
+   sem aparecer no site publicado. Agora elas são registradas em
+   layout.tsx com next/font/google, que builda os arquivos da fonte
+   localmente e os expõe como variáveis CSS (--font-syne / --font-inter)
+   usadas logo abaixo. */
 
 /* ─── Variáveis de tema ──────────────────────────────────────
    Valores em :root = modo escuro (padrão)
@@ -54,14 +60,23 @@
 }
 
 /* ─── Fontes ──────────────────────────────────────────────── */
-@utility font-display { font-family: 'Syne', sans-serif; }
-@utility font-body    { font-family: 'Inter', sans-serif; }
+/* var(--font-syne) / var(--font-inter) são geradas pelo next/font
+   em layout.tsx — garante que a fonte carregue de forma confiável
+   em produção, sem flash de texto sem estilo. */
+@utility font-display { font-family: var(--font-syne), sans-serif; }
+@utility font-body    { font-family: var(--font-inter), sans-serif; }
 
 /* ─── Cores da marca (fixas, não mudam com o tema) ───────── */
 @utility blue        { color: #152fb2; }
 @utility blue-bg     { background-color: #152fb2; }
 @utility yellow      { color: var(--brand-yellow); }
-@utility yellow-bg   { background-color: var(--brand-yellow); }
+@utility yellow-bg   {
+  background-color: var(--brand-yellow);
+  /* Cor do texto fixada em preto aqui dentro: assim TODO elemento que
+     usa yellow-bg já fica com a escrita correta nos dois temas, sem
+     depender de cada botão declarar text-[var(--text-on-yellow)] à parte. */
+  color: var(--text-on-yellow);
+}
 @utility purple      { color: #5E5C96; }
 @utility purple-bg   { background-color: #5E5C96; }
 
@@ -133,7 +148,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-inter), sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
