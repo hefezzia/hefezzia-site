@@ -135,6 +135,12 @@
   animation: marquee 80s linear infinite;
 }
 
+@media (max-width: 767px) {
+  .marquee-track {
+    animation-duration: 100s;
+  }
+}
+
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
