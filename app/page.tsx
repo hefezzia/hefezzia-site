@@ -409,8 +409,7 @@ export default function Home() {
               className={`font-body font-medium mb-1 text-lg transition-colors duration-300 ${theme === "dark" ? "text-[#FFFFFF]" : "text-[#1F2937]"}`}>
               Ensaio Fotográfico Profissional
             </p>
-            <p>
-              className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]">
+            <p className={`font-body text-sm mb-3 leading-relaxed transition-colors duration-300 ${theme === "dark" ? "text-white/70" : "text-[#4B5563]"}`}>
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-3xl yellow my-3">
