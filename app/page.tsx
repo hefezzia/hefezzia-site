@@ -247,19 +247,19 @@ export default function Home() {
           <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]"
             style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}>
             Seu negócio merece<br />
-            um site que <span className="font-display yellow">converte</span>
+            um site<span className="font-display yellow">profissional!</span>
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
-            Criamos sites profissionais para pequenos negócios em todo o MUNDO! Sites rápidos, bonitos e com domínio próprio. Do briefing ao ar em poucos dias.
+            Nós criamos tudo para você e colocamos sua empresa na internet em poucos dias. Um site profissional, bonito e pronto para divulgar o seu negócio!
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
-            <a href="#portfolio"
-              className="yellow-bg font-body font-semibold text-sm px-8 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
-              Ver Portfólio
-            </a>
             <a href="#planos"
+              className="yellow-bg font-body font-semibold text-sm px-8 py-4 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
+              QUERO MEU SITE
+            </a>
+            <a href="#portfolio"
               className="border border-[var(--border-15)] text-[var(--text-primary)] font-body text-sm px-8 py-4 rounded-full cursor-pointer hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)] transition-all">
-              Ver Planos
+              Ver Portfólio
             </a>
           </div>
 
