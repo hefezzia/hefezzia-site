@@ -272,7 +272,7 @@ export default function Home() {
             <div key={group} className="flex shrink-0">
               {[...Array(6)].map((_, i) => (
                 <span key={i} className="font-display font-bold text-white text-xl tracking-widest shrink-0">
-                  SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO ·
+                  SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · 
                 </span>
               ))}
             </div>
