@@ -55,8 +55,9 @@ const portfolio = [
 const planos = [
   {
     nome: "Silver",
-    precoAnterior: "399",
-    preco: "199",
+    precoAnterior: "497",
+    preco: "297",
+    precoAnual: "2970",
     foto: "Fornecida pelo cliente",
     copy: "Básico incluso",
     itens: [
@@ -72,8 +73,9 @@ const planos = [
   },
   {
     nome: "Gold",
-    precoAnterior: "499",
-    preco: "299",
+    precoAnterior: "697",
+    preco: "447",
+    precoAnual: "4470",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
     itens: [
@@ -90,8 +92,9 @@ const planos = [
   },
   {
     nome: "Premium",
-    precoAnterior: "699",
-    preco: "499",
+    precoAnterior: "997",
+    preco: "797",
+    precoAnual: "7970",
     foto: "Equipe profissional inclusa",
     copy: "Profissional incluso",
     itens: [
@@ -124,6 +127,7 @@ export default function Home() {
   const [phoneValue, setPhoneValue] = useState("");
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
+  const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("hefezzia-theme") as "dark" | "light" | null;
@@ -243,7 +247,7 @@ export default function Home() {
           <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]"
             style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}>
             Seu negócio merece<br />
-            um site que <span className="font-display yellow">converte.</span>
+            um site que <span className="font-display yellow">converte</span>
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
             Criamos sites profissionais para pequenos negócios em todo o MUNDO! Sites rápidos, bonitos e com domínio próprio. Do briefing ao ar em poucos dias.
@@ -357,8 +361,22 @@ export default function Home() {
         <div className="container">
           <div className="text-center mb-16">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Investimento Tudo Incluso</p>
-            <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">Planos Mensais</h2>
+            <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">
+              Planos {ciclo === "mensal" ? "Mensais" : "Anuais"}
+            </h2>
             <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
+            
+            <div className="inline-flex items-center gap-1 mt-8 p-1 rounded-full border border-[var(--border-15)] bg-[var(--bg-secondary)]">
+              <button onClick={() => setCiclo("mensal")} className={`font-body text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full cursor-pointer transition-all ${ciclo === "mensal" ? "yellow-bg" : "text-[var(--text-50)]"}`}>
+                Mensal
+              </button>
+              <button onClick={() => setCiclo("anual")} className={`font-body text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full cursor-pointer transition-all flex items-center gap-2 ${ciclo === "anual" ? "yellow-bg" : "text-[var(--text-50)]"}`}>
+                Anual
+                <span className={`text-[10px] px-2 py-0.5 rounded-full ${ciclo === "anual" ? "bg-[var(--text-on-yellow)] text-[var(--brand-yellow)]" : "blue-bg text-white"}`}>
+                  -17%
+                </span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -518,9 +536,12 @@ export default function Home() {
 
               <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
-                <option value="silver" className="bg-[var(--bg-primary)]">Silver — R$ 199/mês</option>
-                <option value="gold" className="bg-[var(--bg-primary)]">Gold — R$ 299/mês</option>
-                <option value="premium" className="bg-[var(--bg-primary)]">Premium — R$ 499/mês</option>
+                <option value="silver" className="bg-[var(--bg-primary)]">Silver — MENSAL</option>
+                <option value="silver" className="bg-[var(--bg-primary)]">Silver — ANUAL</option>
+                <option value="gold" className="bg-[var(--bg-primary)]">Gold — MENSAL</option>
+                <option value="gold" className="bg-[var(--bg-primary)]">Gold — ANUAL</option>
+                <option value="premium" className="bg-[var(--bg-primary)]">Premium — MENSAL</option>
+                <option value="premium" className="bg-[var(--bg-primary)]">Premium — ANUAL</option>
                 <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
               </select>
 
