@@ -268,8 +268,8 @@ export default function Home() {
       {/* ─── MARQUEE ─────────────────────────────────────── */}
       <div className="blue-bg py-3 overflow-hidden border-b border-[var(--border-5)]">
         <div className="flex marquee-track whitespace-nowrap">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="font-display font-bold text-white text-xl tracking-widest px-8">
+          {[...Array(6)].map((_, i) => (
+            <span key={i} className="font-display font-bold text-white text-xl tracking-widest px-12 shrink-0">
               SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · &nbsp;
             </span>
           ))}
