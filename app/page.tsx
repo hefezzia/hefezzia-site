@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const portfolio = [
   {
@@ -128,16 +128,19 @@ export default function Home() {
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
   const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("hefezzia-theme") as "dark" | "light" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute("data-theme", savedTheme);
-    } else {
-      const current = document.documentElement.getAttribute("data-theme") as "dark" | "light" | null;
-      if (current) setTheme(current);
-    }
+    const track = marqueeRef.current;
+    if (!track) return;
+    const ajustarVelocidade = () => {
+      const largura = track.scrollWidth / 2; // largura de UMA cópia do texto
+      const pxPorSegundo = window.innerWidth < 768 ? 220 : 140; // mobile mais rápido que desktop
+      track.style.animationDuration = `${largura / pxPorSegundo}s`;
+    };
+    ajustarVelocidade();
+    window.addEventListener("resize", ajustarVelocidade);
+    return () => window.removeEventListener("resize", ajustarVelocidade);
   }, []);
 
   const toggleTheme = () => {
@@ -278,7 +281,7 @@ export default function Home() {
 
       {/* ─── MARQUEE ─────────────────────────────────────── */}
       <div className="blue-bg py-3 overflow-hidden border-b border-[var(--border-5)]">
-        <div className="flex marquee-track whitespace-nowrap">
+        <div ref={marqueeRef} className="flex marquee-track whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="font-display font-bold text-white text-xl tracking-widest px-8">
               SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · &nbsp;
