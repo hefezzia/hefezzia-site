@@ -132,12 +132,12 @@
 @utility marquee-track {
   width: max-content;
   display: flex;
-  animation: marquee 4s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 
 @media (max-width: 767px) {
   .marquee-track {
-    animation-duration: 60s;
+    animation-duration: 70s;
   }
 }
 
