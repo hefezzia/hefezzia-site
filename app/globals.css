@@ -132,7 +132,7 @@
 /* Velocidade do texto rolante: mais rápido no mobile que no desktop */
 @utility marquee-track { animation: marquee 14s linear infinite; }
 @media (max-width: 767px) {
-  .marquee-track { animation-duration: 3s; }
+  .marquee-track { animation-duration: 6s; }
 }
 
 @keyframes fadeUp {
