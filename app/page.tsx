@@ -389,27 +389,51 @@ export default function Home() {
                 )}
                 <p className={`font-body text-xs tracking-widest uppercase mb-2 ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>{p.nome}</p>
 
-                <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
-                  R$ {p.precoAnterior}/mês
-                </div>
-                <div className="flex items-end gap-1 mb-2">
-                  <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>R$</span>
-                  <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>{p.preco}</span>
-                  <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>/mês</span>
-                </div>
-
-                {/* Preço cheio (mensal x 12) riscado para evidenciar o desconto anual */}
+                {ciclo === "mensal" ? (
+                  <>
+                    <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
+                      R$ {p.precoAnterior}/mês
+                    </div>
+                
+                    <div className="flex items-end gap-1 mb-4">
+                      <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                        R$
+                      </span>
+                
+                      <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>
+                        {p.preco}
+                      </span>
+                
+                      <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                        /mês
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
                     <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
                       R$ {Number(p.preco) * 12}/ano
                     </div>
+                
                     <div className="flex items-end gap-1 mb-2">
-                      <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>R$</span>
-                      <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>{p.precoAnual}</span>
-                      <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>/ano</span>
+                      <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                        R$
+                      </span>
+                
+                      <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>
+                        {p.precoAnual}
+                      </span>
+                
+                      <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                        /ano
+                      </span>
                     </div>
-                    <p className={`font-body text-xs -mt-1 mb-1 ${p.destaque ? "text-white/60" : "text-[var(--text-40)]"}`}>
+                
+                    <p className={`font-body text-xs -mt-1 mb-4 ${p.destaque ? "text-white/60" : "text-[var(--text-40)]"}`}>
                       equivale a R$ {Math.round(Number(p.precoAnual) / 12)}/mês · pagamento único anual
                     </p>
+                  </>
+                )}
 
                 <div className="flex flex-col gap-1 mb-6">
                   <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>📸 Fotos: {p.foto}</span>
