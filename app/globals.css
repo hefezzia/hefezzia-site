@@ -31,8 +31,8 @@
   --border-20: rgba(255,255,255,0.20);
   
   /* Amarelo unificado para ambos os modos */
-  --brand-yellow: #ffca00;
-  --text-on-yellow: #0A0A0A;
+  --brand-yellow: #EBCF42;
+  --text-yellow: #EBCF42;
 }
 
 [data-theme="light"] {
@@ -55,8 +55,8 @@
   --border-15: rgba(10,10,10,0.22);
   --border-20: rgba(10,10,10,0.30);
 
-  /* Herda automaticamente o --brand-yellow do :root */
-  --text-on-yellow: #0A0A0A;
+  --brand-yellow: #F0D348;
+  --text-yellow: #C59B27;
 }
 
 /* ─── Utilities & Components ─────────────────────────────── */
