@@ -358,7 +358,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Investimento Tudo Incluso</p>
             <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">Planos Mensais</h2>
-            <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e maintenance já inclusos na assinatura.</p>
+            <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -399,9 +399,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
-          <div className={`mt-16 border rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300 ${theme === "dark" ? "bg-[#111111] border-[var(--border-8)]" : "bg-[var(--bg-secondary)] border-[var(--border-15)]"}`}>
-            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold" style={{ color: 'var(--text-yellow)' }}>
+
+          {/* CARD DE SERVIÇO ADICIONAL ADAPTÁVEL (Tema Claro / Escuro) */}
+          <div className="mt-16 border border-[var(--border-15)] bg-[var(--bg-secondary)] rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300">
+            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold text-[var(--brand-yellow)]">
               Serviço adicional
             </p>
             <h3 className="font-body font-bold mb-1 text-xl text-[var(--text-primary)]">
@@ -410,15 +411,16 @@ export default function Home() {
             <p className="font-body text-sm mb-4 leading-relaxed text-[var(--text-60)]">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
-            <p className="font-display font-bold text-4xl my-3" style={{ color: 'var(--text-yellow)' }}>
+            <p className="font-display font-bold text-4xl my-3 text-[var(--brand-yellow)]">
               R$ 1.500
             </p>
             <p className="font-body text-xs mt-2 text-[var(--text-40)] font-medium">
               Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
             </p>
           </div>
+        </div>
       </section>
-
+      
       {/* ─── FAQ ─────────────────────────────────────────── */}
       <section id="faq" className="py-28 bg-[var(--bg-secondary)] border-b border-[var(--border-5)]">
         <div className="container max-w-3xl">
