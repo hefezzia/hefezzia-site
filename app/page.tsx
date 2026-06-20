@@ -419,20 +419,20 @@ export default function Home() {
           </div>
 
           {/* CARD DE SERVIÇO ADICIONAL ADAPTÁVEL (Tema Claro / Escuro) */}
-          <div className="mt-16 border border-[var(--border-15)] bg-[var(--bg-secondary)] rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300">
+          <div className="mt-16 border border-white/10 bg-[#111111] rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300">
             <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold yellow">
               Serviço adicional
             </p>
-            <h3 className="font-body font-bold mb-1 text-xl text-[var(--text-primary)]">
+            <h3 className="font-body font-bold mb-1 text-xl text-white">
               Ensaio Fotográfico Profissional
             </h3>
-            <p className="font-body text-sm mb-4 leading-relaxed text-[var(--text-60)]">
+            <p className="font-body text-sm mb-4 leading-relaxed text-white/60">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
             </p>
             <p className="font-display font-bold text-4xl my-3 yellow">
               R$ 1.500
             </p>
-            <p className="font-body text-xs mt-2 text-[var(--text-40)] font-medium">
+            <p className="font-body text-xs mt-2 text-white/40 font-medium">
               Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
             </p>
           </div>
@@ -488,7 +488,7 @@ export default function Home() {
             <div>
               <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-4">Fale com a gente</p>
               <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)] leading-none mb-8">
-                Vamos criar algo 
+                Vamos criar algo{" "}
                 <span className="font-display yellow">incrível juntos?</span>
               </h2>
               <p className="font-body text-[var(--text-50)] leading-relaxed max-w-sm mb-12">
@@ -523,16 +523,16 @@ export default function Home() {
                 if (!e.currentTarget.checkValidity()) e.preventDefault();
               }} className="space-y-5">
               <input type="text" placeholder="Nome completo *" required value={nameValue} onInput={handleName}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               <input type="text" placeholder="Nome do negócio *" required
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               <input type="email" placeholder="E-mail *" required
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
@@ -557,7 +557,7 @@ export default function Home() {
               </select>
 
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-25)]" />
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-40)]" />
 
               <button type="submit" className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
                 Enviar Mensagem
