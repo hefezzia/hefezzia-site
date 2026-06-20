@@ -456,24 +456,29 @@ export default function Home() {
           </div>
 
           {/* CARD DE SERVIÇO ADICIONAL */}
-          <div className="mt-16 bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-8 max-w-2xl mx-auto text-center">
-            <p className="font-body text-xs tracking-widest uppercase mb-3 font-semibold yellow">
+          <div className="mt-16 bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center">
+            
+            <p className="font-body text-xs tracking-widest uppercase mb-3 text-[var(--text-50)]">
               Serviço adicional
             </p>
           
-            <h3 className="font-display font-bold text-3xl text-[var(--text-primary)] mb-4">
+            <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-3">
               Ensaio Fotográfico Profissional
             </h3>
           
-            <p className="font-display font-bold text-5xl yellow mb-4">
+            <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
+              Uma equipe profissional vai até o seu negócio para fotografar o espaço,
+              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
+            </p>
+          
+            <p className="font-display font-bold text-4xl yellow mb-4">
               R$ 1.500
             </p>
-
-            <p className="font-body text-[var(--text-55)] leading-relaxed max-w-xl mx-auto mb-6">
-              Uma equipe profissional vai até o seu negócio para fotografar o espaço,
-              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes
-              sociais.
+          
+            <p className="font-body text-xs text-[var(--text-40)]">
+              Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
             </p>
+          
           </div>
         </div>
       </section>
