@@ -135,10 +135,12 @@ export default function Home() {
     if (!track) return;
     const ajustarVelocidade = () => {
       const largura = track.scrollWidth / 2; // largura de UMA cópia do texto
+      if (!largura) return; // evita aplicar duração inválida (0 ou NaN)
       const pxPorSegundo = window.innerWidth < 768 ? 220 : 140; // mobile mais rápido que desktop
       track.style.animationDuration = `${largura / pxPorSegundo}s`;
     };
     ajustarVelocidade();
+    document.fonts.ready.then(ajustarVelocidade); // remede depois que a fonte Syne carrega de verdade
     window.addEventListener("resize", ajustarVelocidade);
     return () => window.removeEventListener("resize", ajustarVelocidade);
   }, []);
