@@ -245,9 +245,9 @@ export default function Home() {
             Desenvolvimento Web · Design Digital · Brasil
           </p>
           <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]" style={{fontSize: "clamp(3rem, 8vw, 7.5rem)", whiteSpace: "normal"}}>
-            Seu negócio merece um
+            Seu negócio merece ser
             <br />
-            site <span className="font-display yellow">profissional!</span>
+            <span className="font-display yellow">profissional</span>!
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
             Nós criamos tudo para você e colocamos sua empresa na internet em poucos dias. Um site profissional, bonito e pronto para divulgar o seu negócio!
