@@ -95,7 +95,7 @@ const planos = [
     precoAnterior: "997",
     preco: "797",
     precoAnual: "7970",
-    foto: "Equipe profissional inclusa",
+    foto: "Fornecida pelo cliente",
     copy: "Profissional incluso",
     itens: [
       "Site completo até 10 seções",
@@ -244,10 +244,10 @@ export default function Home() {
           <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-6 fade-up">
             Desenvolvimento Web · Design Digital · Brasil
           </p>
-          <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]"
-            style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}>
-            Seu negócio merece<br />
-            um site<span className="font-display yellow">profissional!</span>
+          <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]" style={{fontSize: "clamp(3rem, 8vw, 7.5rem)", whiteSpace: "normal"}}>
+            Seu negócio merece um
+            <br />
+            site <span className="font-display yellow">profissional!</span>
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
             Nós criamos tudo para você e colocamos sua empresa na internet em poucos dias. Um site profissional, bonito e pronto para divulgar o seu negócio!
