@@ -206,7 +206,7 @@ export default function Home() {
           </button>
         </div>
         {menuOpen && (
-          <div className="lg:hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 py-6 space-y-4">
+          <div className="lg:hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 py-6 space-y-4 menu-drop">
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
                 className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
@@ -242,7 +242,7 @@ export default function Home() {
 
         <div className="container relative z-10">
           <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-6 fade-up">
-            Desenvolvimento Web · Design Digital · Brasil
+            Desenvolvimento Web · Design Digital
           </p>
           <h1 className="font-display font-bold leading-none mb-8 fade-up-2 text-[var(--text-primary)]" style={{fontSize: "clamp(3rem, 8vw, 7.5rem)", whiteSpace: "normal"}}>
             Seu negócio merece ser
@@ -250,7 +250,7 @@ export default function Home() {
             <span className="font-display yellow">profissional</span>!
           </h1>
           <p className="font-body text-[var(--text-55)] text-lg leading-relaxed mb-10 max-w-xl fade-up-3">
-            Nós criamos tudo para você e colocamos sua empresa na internet em poucos dias. Um site profissional, bonito e pronto para divulgar o seu negócio!
+            Nós criamos tudo para você e colocamos a sua empresa na internet em poucos dias!
           </p>
           <div className="flex flex-wrap gap-4 fade-up-4">
             <a href="#planos"
