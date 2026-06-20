@@ -455,22 +455,24 @@ export default function Home() {
             ))}
           </div>
 
-          {/* CARD DE SERVIÇO ADICIONAL ADAPTÁVEL (Tema Claro / Escuro) */}
-          <div className="mt-16 border border-white/10 bg-[#111111] rounded-2xl p-6 max-w-2xl mx-auto text-center transition-all duration-300">
-            <p className="font-body text-xs tracking-widest uppercase mb-2 font-semibold yellow">
+          {/* CARD DE SERVIÇO ADICIONAL */}
+          <div className="mt-16 bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-8 max-w-2xl mx-auto text-center">
+            <p className="font-body text-xs tracking-widest uppercase mb-3 font-semibold yellow">
               Serviço adicional
             </p>
-            <h3 className="font-body font-bold mb-1 text-xl text-white">
+          
+            <h3 className="font-display font-bold text-3xl text-[var(--text-primary)] mb-4">
               Ensaio Fotográfico Profissional
             </h3>
-            <p className="font-body text-sm mb-4 leading-relaxed text-white/60">
-              Uma equipe profissional vai até o seu negócio para fotografar o espaço, produtos e equipe. Fotos entregues tratadas e prontas para o site e redes sociais.
-            </p>
-            <p className="font-display font-bold text-4xl my-3 yellow">
+          
+            <p className="font-display font-bold text-5xl yellow mb-4">
               R$ 1.500
             </p>
-            <p className="font-body text-xs mt-2 text-white/40 font-medium">
-              Já incluso no Plano Premium · Desconto automático se você fornecer as fotos
+
+            <p className="font-body text-[var(--text-55)] leading-relaxed max-w-xl mx-auto mb-6">
+              Uma equipe profissional vai até o seu negócio para fotografar o espaço,
+              produtos e equipe. Fotos entregues tratadas e prontas para o site e redes
+              sociais.
             </p>
           </div>
         </div>
