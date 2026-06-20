@@ -1,5 +1,27 @@
 import type { Metadata } from "next";
+import { Syne, Inter } from "next/font/google";
 import "./globals.css";
+
+/* Fontes da marca registradas via next/font/google:
+   - build self-hosted local (sem chamada externa em runtime)
+   - sem flash de fonte errada e sem risco de o CSS otimizado do Next
+     descartar um @import remoto em produção (era a causa da fonte
+     Syne não aparecer no site)
+   Cada fonte gera uma CSS variable, consumida em globals.css
+   pelas classes utilitárias font-display / font-body. */
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-syne",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Hefezzia | Sites Profissionais",
@@ -8,7 +30,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    // As variáveis das fontes vão na tag <html> para já estarem
+    // disponíveis para todo o documento antes da primeira renderização.
+    <html lang="pt-BR" className={`${syne.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
