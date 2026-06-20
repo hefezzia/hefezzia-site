@@ -410,7 +410,6 @@ export default function Home() {
                     <p className={`font-body text-xs -mt-1 mb-1 ${p.destaque ? "text-white/60" : "text-[var(--text-40)]"}`}>
                       equivale a R$ {Math.round(Number(p.precoAnual) / 12)}/mês · pagamento único anual
                     </p>
-                )}
 
                 <div className="flex flex-col gap-1 mb-6">
                   <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>📸 Fotos: {p.foto}</span>
