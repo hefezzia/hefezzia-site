@@ -469,7 +469,7 @@ export default function Home() {
           <p className="font-body text-xs tracking-widest uppercase text-white/60 mb-4">Pronto para começar?</p>
           <h2 className="font-display font-bold text-4xl md:text-6xl text-white leading-tight mb-6">
             Seu site pode estar no ar<br />
-            <span className="font-display yellow">ainda essa semana.</span>
+            <span className="font-display yellow">ainda essa semana</span>
           </h2>
           <p className="font-body text-white/70 mb-10 max-w-lg mx-auto">
             Sem enrolação. Sem burocracia. Você foca no seu negócio e a gente cuida da sua presença digital.
