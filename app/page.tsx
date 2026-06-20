@@ -202,7 +202,11 @@ export default function Home() {
             Solicitar Orçamento
           </a>
           <button className="lg:hidden text-[var(--text-primary)] cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
-            <span className="material-icons">{menuOpen ? "close" : "menu"}</span>
+            <div className="space-y-1.5">
+              <span className={`block w-6 h-0.5 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-6 h-0.5 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-6 h-0.5 bg-[var(--text-primary)] transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+            </div>
           </button>
         </div>
         <div className={`lg:hidden overflow-hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 transition-all duration-300 ease-in-out space-y-4 ${menuOpen ? "max-h-96 py-6 opacity-100" : "max-h-0 py-0 opacity-0"}`}>
@@ -277,7 +281,7 @@ export default function Home() {
         <div className="flex marquee-track whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
             <span key={i} className="font-display font-bold text-white text-xl tracking-widest px-8">
-              SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO ·&nbsp;
+              SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO · SITES PROFISSIONAIS · DESIGN EXCLUSIVO · DOMÍNIO PRÓPRIO · HOSPEDAGEM INCLUSA · COPY INCLUSO · ENTREGA RÁPIDA · SUPORTE CONTÍNUO ·&nbsp;
             </span>
           ))}
         </div>
