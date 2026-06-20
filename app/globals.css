@@ -1,15 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght=400;500;600;700;800&family=Inter:wght=300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
 
 @import "tailwindcss";
 
-/* ─── Configuração de Fontes para Tailwind v4 ──────────────── */
-@theme {
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
-}
-
-/* ─── Theme Variables ────────────────────────────────────── */
+/* ─── Variáveis de tema ──────────────────────────────────────
+   Valores em :root = modo escuro (padrão)
+   [data-theme="light"] sobrescreve apenas o que muda ───────── */
 :root {
   --bg-primary: #0A0A0A;
   --bg-secondary: #111111;
@@ -29,10 +24,12 @@
   --border-8:  rgba(255,255,255,0.08);
   --border-15: rgba(255,255,255,0.15);
   --border-20: rgba(255,255,255,0.20);
-  
-  /* Amarelo unificado para ambos os modos */
+
+  /* Amarelo da marca — igual nos dois temas */
   --brand-yellow: #FFCA00;
-  --text-yellow: #FFCA00;
+  /* Texto sobre fundo amarelo — sempre escuro, nos dois temas,
+     para garantir contraste e legibilidade nos botões */
+  --text-on-yellow: #0A0A0A;
 }
 
 [data-theme="light"] {
@@ -54,15 +51,13 @@
   --border-8:  rgba(10,10,10,0.14);
   --border-15: rgba(10,10,10,0.22);
   --border-20: rgba(10,10,10,0.30);
-
-  --brand-yellow: #FFCA00;
-  --text-yellow: #FFCA00;
 }
 
-/* ─── Utilities & Components ─────────────────────────────── */
-.font-display { font-family: 'Syne', sans-serif !important; }
-.font-body    { font-family: 'Inter', sans-serif !important; }
+/* ─── Fontes ──────────────────────────────────────────────── */
+@utility font-display { font-family: 'Syne', sans-serif; }
+@utility font-body    { font-family: 'Inter', sans-serif; }
 
+/* ─── Cores da marca (fixas, não mudam com o tema) ───────── */
 @utility blue        { color: #152fb2; }
 @utility blue-bg     { background-color: #152fb2; }
 @utility yellow      { color: var(--brand-yellow); }
@@ -70,6 +65,13 @@
 @utility purple      { color: #5E5C96; }
 @utility purple-bg   { background-color: #5E5C96; }
 
+/* Contorno sutil no texto amarelo no modo claro */
+[data-theme="light"] .yellow {
+  -webkit-text-stroke: 0.4px rgba(0,0,0,0.35);
+  text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* ─── Componentes reutilizáveis ──────────────────────────── */
 @utility plan-card-border {
   border: 1px solid var(--border-8);
 }
@@ -86,9 +88,7 @@
     background: var(--brand-yellow);
     transition: width 0.3s ease;
   }
-  &:hover::after {
-    width: 100%;
-  }
+  &:hover::after { width: 100%; }
 }
 
 @utility portfolio-card {
@@ -111,7 +111,7 @@
   &:hover { transform: scale(1.1); }
 }
 
-/* ─── Animations ─────────────────────────────────────────── */
+/* ─── Animações ───────────────────────────────────────────── */
 @utility fade-up   { animation: fadeUp 0.8s ease 0.0s forwards; }
 @utility fade-up-2 { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
 @utility fade-up-3 { animation: fadeUp 0.8s ease 0.4s forwards; opacity: 0; }
@@ -129,11 +129,11 @@
 }
 
 /* ─── Base ───────────────────────────────────────────────── */
-* { box-shrink: 0; box-sizing: border-box; }
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Inter', sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
