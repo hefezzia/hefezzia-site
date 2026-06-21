@@ -575,11 +575,11 @@ export default function Home() {
               {/* Passo 1: escolhe o ciclo de pagamento */}
               <select required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
               className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
-              <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
-              <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
-              <option value="anual" className="bg-[var(--bg-primary)]">Anual (17% OFF)</option>
-              <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
-            </select>
+                <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
+                <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
+                <option value="anual" className="bg-[var(--bg-primary)]">Anual (17% OFF)</option>
+                <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
+              </select>
               
               {/* Passo 2: só aparece depois do ciclo escolhido — usa os preços já cadastrados em "planos" */}
               {formCiclo && (
@@ -594,15 +594,16 @@ export default function Home() {
                 </select>
               )}
 
-              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+              <select required value={segmento} onChange={(e) => setSegmento(e.target.value)}
+              className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
-                <option className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
-                <option className="bg-[var(--bg-primary)]">Restaurante / Alimentação</option>
-                <option className="bg-[var(--bg-primary)]">Saúde / Estética</option>
-                <option className="bg-[var(--bg-primary)]">Fitness / Personal</option>
-                <option className="bg-[var(--bg-primary)]">Jurídico / Contabilidade</option>
-                <option className="bg-[var(--bg-primary)]">Pet Shop / Veterinário</option>
-                <option className="bg-[var(--bg-primary)]">Outro</option>
+                <option value="Barbearia / Salão" className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
+                <option value="Restaurante / Alimentação" className="bg-[var(--bg-primary)]">Restaurante / Alimentação</option>
+                <option value="Saúde / Estética" className="bg-[var(--bg-primary)]">Saúde / Estética</option>
+                <option value="Fitness / Personal" className="bg-[var(--bg-primary)]">Fitness / Personal</option>
+                <option value="Jurídico / Contabilidade" className="bg-[var(--bg-primary)]">Jurídico / Contabilidade</option>
+                <option value="Pet Shop / Veterinário" className="bg-[var(--bg-primary)]">Pet Shop / Veterinário</option>
+                <option value="Outro" className="bg-[var(--bg-primary)]">Outro</option>
               </select>
 
               {/* Aparece só quando "Outro" é selecionado — exige dizer qual é o segmento */}
