@@ -128,6 +128,8 @@ export default function Home() {
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
   const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
+  const [formCiclo, setFormCiclo]   = useState<"" | "mensal" | "anual">("");
+  const [querEnsaio, setQuerEnsaio] = useState(false);
   
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -569,16 +571,27 @@ export default function Home() {
               <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
-                <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
-                <option value="silver" className="bg-[var(--bg-primary)]">Silver — MENSAL</option>
-                <option value="silver" className="bg-[var(--bg-primary)]">Silver — ANUAL</option>
-                <option value="gold" className="bg-[var(--bg-primary)]">Gold — MENSAL</option>
-                <option value="gold" className="bg-[var(--bg-primary)]">Gold — ANUAL</option>
-                <option value="premium" className="bg-[var(--bg-primary)]">Premium — MENSAL</option>
-                <option value="premium" className="bg-[var(--bg-primary)]">Premium — ANUAL</option>
-                <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
+              {/* Passo 1: escolhe o ciclo de pagamento */}
+              <select required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+                <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
+                <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
+                <option value="anual" className="bg-[var(--bg-primary)]">Anual (com desconto)</option>
+                <option value="anual" className="bg-[var(--bg-primary)]">Ainda não sei</option>
               </select>
+              
+              {/* Passo 2: só aparece depois do ciclo escolhido — usa os preços já cadastrados em "planos" */}
+              {formCiclo && (
+                <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+                  <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
+                  {planos.map((p) => (
+                    <option key={p.nome} value={p.nome.toLowerCase()} className="bg-[var(--bg-primary)]">
+                      {p.nome} — R$ {formCiclo === "anual" ? p.precoAnual : p.preco}{formCiclo === "anual" ? "/ano" : "/mês"}
+                    </option>
+                  ))}
+                  <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
+                </select>
+              )}
 
               <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
@@ -590,6 +603,15 @@ export default function Home() {
                 <option className="bg-[var(--bg-primary)]">Pet Shop / Veterinário</option>
                 <option className="bg-[var(--bg-primary)]">Outro</option>
               </select>
+
+              {/* Ensaio fotográfico — serviço adicional opcional */}
+              <label className="flex items-start gap-3 cursor-pointer py-2">
+                <input type="checkbox" checked={querEnsaio} onChange={(e) => setQuerEnsaio(e.target.checked)}
+                  className="mt-1 w-4 h-4 accent-[var(--brand-yellow)] cursor-pointer" />
+                <span className="font-body text-sm text-[var(--text-70)]">
+                  Quero incluir o <strong className="text-[var(--text-primary)]">Ensaio Fotográfico Profissional</strong> (+R$ 1.500)
+                </span>
+              </label>
 
               <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-40)]" />
