@@ -130,6 +130,7 @@ export default function Home() {
   const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
   const [formCiclo, setFormCiclo]   = useState<"" | "mensal" | "anual">("");
   const [querEnsaio, setQuerEnsaio] = useState(false);
+  const [segmento, setSegmento]     = useState("");
   
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -603,6 +604,12 @@ export default function Home() {
                 <option className="bg-[var(--bg-primary)]">Pet Shop / Veterinário</option>
                 <option className="bg-[var(--bg-primary)]">Outro</option>
               </select>
+
+              {/* Aparece só quando "Outro" é selecionado — exige dizer qual é o segmento */}
+              {segmento === "Outro" && (
+                <input type="text" placeholder="Qual é o segmento? *" required
+                  className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
+              )}
 
               {/* Ensaio fotográfico — serviço adicional opcional */}
               <label className="flex items-start gap-3 cursor-pointer py-2">
