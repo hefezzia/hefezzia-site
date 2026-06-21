@@ -370,7 +370,7 @@ export default function Home() {
               <button onClick={() => setCiclo("anual")} className={`font-body text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full cursor-pointer transition-all flex items-center gap-2 ${ciclo === "anual" ? "yellow-bg" : "text-[var(--text-50)]"}`}>
                 Anual
                 <span className={`text-[10px] px-2 py-0.5 rounded-full ${ciclo === "anual" ? "bg-[var(--text-on-yellow)] text-[var(--brand-yellow)]" : "blue-bg text-white"}`}>
-                  -17%
+                  17% OFF
                 </span>
               </button>
             </div>
@@ -573,12 +573,12 @@ export default function Home() {
 
               {/* Passo 1: escolhe o ciclo de pagamento */}
               <select required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
-                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
-                <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
-                <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
-                <option value="anual" className="bg-[var(--bg-primary)]">Anual (com desconto)</option>
-                <option value="anual" className="bg-[var(--bg-primary)]">Ainda não sei</option>
-              </select>
+              className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+              <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
+              <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
+              <option value="anual" className="bg-[var(--bg-primary)]">Anual (17% OFF)</option>
+              <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
+            </select>
               
               {/* Passo 2: só aparece depois do ciclo escolhido — usa os preços já cadastrados em "planos" */}
               {formCiclo && (
@@ -609,7 +609,7 @@ export default function Home() {
                 <input type="checkbox" checked={querEnsaio} onChange={(e) => setQuerEnsaio(e.target.checked)}
                   className="mt-1 w-4 h-4 accent-[var(--brand-yellow)] cursor-pointer" />
                 <span className="font-body text-sm text-[var(--text-70)]">
-                  Quero incluir o <strong className="text-[var(--text-primary)]">Ensaio Fotográfico Profissional</strong> (+R$ 1.500)
+                  Quero incluir o <strong className="text-[var(--text-primary)]">Ensaio Fotográfico Profissional</strong>
                 </span>
               </label>
 
