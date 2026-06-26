@@ -628,7 +628,7 @@ export default function Home() {
                 </span>
               </label>
 
-              <textarea placeholder="Conte um pouco sobre o seu negócio (opcional)" rows={3}
+              <textarea name="mensagem" placeholder="Conte um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-40)]" />
 
               <button type="submit" className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
