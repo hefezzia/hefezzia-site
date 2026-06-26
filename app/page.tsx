@@ -557,23 +557,30 @@ export default function Home() {
               </a>
             </div>
 
-            <form onSubmit={(e) => {
-                if (!e.currentTarget.checkValidity()) e.preventDefault();
-              }} className="space-y-5">
-              <input type="text" placeholder="Nome completo *" required value={nameValue} onInput={handleName}
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              if (!e.currentTarget.checkValidity()) return;
+              const formData = new FormData(e.currentTarget);
+              formData.append("access_key", "6a2da3ae-2318-40b7-9895-eb17047c2fb0");
+              formData.append("subject", "Novo contato pelo site — Hefezzia");
+              await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+              alert("Mensagem enviada! Retornaremos em breve.");
+              e.currentTarget.reset();
+            }} className="space-y-5">
+              <input name="nome" type="text" placeholder="Nome completo *" required value={nameValue} onInput={handleName}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              <input type="text" placeholder="Nome do negócio *" required
+              <input name="nome_negocio" type="text" placeholder="Nome do negócio *" required
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              <input type="email" placeholder="E-mail *" required
+              <input name="email" type="email" placeholder="E-mail *" required
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              <input type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
+              <input name="numero" type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               {/* Passo 1: escolhe o ciclo de pagamento */}
-              <select required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
+              <select name="ciclo" required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
               className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
                 <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
@@ -583,7 +590,7 @@ export default function Home() {
               
               {/* Passo 2: só aparece depois do ciclo escolhido — usa os preços já cadastrados em "planos" */}
               {formCiclo && (
-                <select required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+                <select name="plano" required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                   <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
                   {planos.map((p) => (
                     <option key={p.nome} value={p.nome.toLowerCase()} className="bg-[var(--bg-primary)]">
@@ -594,7 +601,7 @@ export default function Home() {
                 </select>
               )}
 
-              <select required value={segmento} onChange={(e) => setSegmento(e.target.value)}
+              <select name="segmento" required value={segmento} onChange={(e) => setSegmento(e.target.value)}
               className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
                 <option value="Barbearia / Salão" className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
@@ -608,20 +615,20 @@ export default function Home() {
 
               {/* Aparece só quando "Outro" é selecionado — exige dizer qual é o segmento */}
               {segmento === "Outro" && (
-                <input type="text" placeholder="Qual é o segmento? *" required
+                <input name="segmento_outro" type="text" placeholder="Qual é o segmento? *" required
                   className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
               )}
 
               {/* Ensaio fotográfico — serviço adicional opcional */}
               <label className="flex items-start gap-3 cursor-pointer py-2">
-                <input type="checkbox" checked={querEnsaio} onChange={(e) => setQuerEnsaio(e.target.checked)}
+                <input name="fotografo" type="checkbox" checked={querEnsaio} onChange={(e) => setQuerEnsaio(e.target.checked)}
                   className="mt-1 w-4 h-4 accent-[var(--brand-yellow)] cursor-pointer" />
                 <span className="font-body text-sm text-[var(--text-70)]">
                   Quero incluir o <strong className="text-[var(--text-primary)]">Ensaio Fotográfico Profissional</strong>
                 </span>
               </label>
 
-              <textarea placeholder="Conta um pouco sobre o seu negócio (opcional)" rows={3}
+              <textarea placeholder="Conte um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-40)]" />
 
               <button type="submit" className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
