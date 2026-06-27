@@ -76,7 +76,7 @@ const planos = [
   {
     nome: "Gold",
     precoAnterior: "697",
-    preco: "447",
+    preco: "497",
     linkPagamento: "https://mpago.la/2TcrSo8",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
@@ -94,8 +94,8 @@ const planos = [
   },
   {
     nome: "Premium",
-    precoAnterior: "997",
-    preco: "797",
+    precoAnterior: "897",
+    preco: "697",
     linkPagamento: "https://mpago.la/1kWu5Gy",
     foto: "Fornecida pelo cliente",
     copy: "Profissional incluso",
