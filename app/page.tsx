@@ -462,7 +462,7 @@ export default function Home() {
           </div>
 
           <p className="font-body text-xs text-[var(--text-30)] text-center mt-6">
-            Pagamento processado com segurança pelo Mercado Pago · Cartão (recorrente) ou PIX
+            <br />· Pagamento processado com segurança pelo Mercado Pago ·
           </p>
 
           {/* CARD DE SERVIÇO ADICIONAL */}
