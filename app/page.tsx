@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const portfolio = [
   {
@@ -52,12 +52,14 @@ const portfolio = [
   },
 ];
 
+// Planos só mensais (Mercado Pago não cria assinatura anual acima de R$ 4.000).
+// Cada plano já leva o link de pagamento direto do Mercado Pago.
 const planos = [
   {
     nome: "Silver",
     precoAnterior: "497",
     preco: "297",
-    precoAnual: "2970",
+    linkPagamento: "https://mpago.la/1F26cxP",
     foto: "Fornecida pelo cliente",
     copy: "Básico incluso",
     itens: [
@@ -75,7 +77,7 @@ const planos = [
     nome: "Gold",
     precoAnterior: "697",
     preco: "447",
-    precoAnual: "4470",
+    linkPagamento: "https://mpago.la/2TcrSo8",
     foto: "Fornecida pelo cliente",
     copy: "Intermediário incluso",
     itens: [
@@ -94,7 +96,7 @@ const planos = [
     nome: "Premium",
     precoAnterior: "997",
     preco: "797",
-    precoAnual: "7970",
+    linkPagamento: "https://mpago.la/1kWu5Gy",
     foto: "Fornecida pelo cliente",
     copy: "Profissional incluso",
     itens: [
@@ -127,11 +129,11 @@ export default function Home() {
   const [phoneValue, setPhoneValue] = useState("");
   const [nameValue, setNameValue]   = useState("");
   const [theme, setTheme]           = useState<"dark" | "light">("dark");
-  const [ciclo, setCiclo]           = useState<"mensal" | "anual">("mensal");
-  const [formCiclo, setFormCiclo]   = useState<"" | "mensal" | "anual">("");
   const [querEnsaio, setQuerEnsaio] = useState(false);
   const [segmento, setSegmento]     = useState("");
-  
+  const [sending, setSending]       = useState(false);
+  const [submitted, setSubmitted]   = useState(false);
+
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
@@ -140,9 +142,9 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fn = () => { 
-      setScrolled(window.scrollY > 40); 
-      setShowTop(window.scrollY > 300); 
+    const fn = () => {
+      setScrolled(window.scrollY > 40);
+      setShowTop(window.scrollY > 300);
     };
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
@@ -164,10 +166,56 @@ export default function Home() {
     setNameValue(input);
   };
 
+  // Envia o formulário, mostra o aviso de sucesso da Hefezzia e
+  // limpa TODOS os campos — incluindo os controlados pelo React,
+  // que um simples form.reset() não apaga.
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!e.currentTarget.checkValidity()) return;
+
+    setSending(true);
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", "6a2da3ae-2318-40b7-9895-eb17047c2fb0");
+    formData.append("subject", "Novo contato pelo site — Hefezzia");
+
+    try {
+      await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+    } finally {
+      setSending(false);
+      e.currentTarget.reset();      // limpa os campos não-controlados (email, mensagem, etc.)
+      setNameValue("");             // limpa os campos controlados pelo React
+      setPhoneValue("");
+      setQuerEnsaio(false);
+      setSegmento("");
+      setSubmitted(true);           // abre o aviso de sucesso
+    }
+  };
+
   const navLinks = ["Início","Portfólio","Planos","FAQ","Contato"];
 
   return (
     <main className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]">
+
+      {/* ─── AVISO DE SUCESSO ────────────────────────────── */}
+      {submitted && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm px-6">
+          <div className="bg-[var(--bg-secondary)] border border-[var(--border-15)] rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl">
+            <div className="w-16 h-16 yellow-bg rounded-full flex items-center justify-center mx-auto mb-6">
+              <span className="material-icons text-3xl">check</span>
+            </div>
+            <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-3">
+              Mensagem enviada!
+            </h3>
+            <p className="font-body text-sm text-[var(--text-55)] leading-relaxed mb-8">
+              Recebemos seus dados e retornaremos em até 4 horas úteis. Se preferir algo mais rápido, fala com a gente pelo WhatsApp.
+            </p>
+            <button onClick={() => setSubmitted(false)}
+              className="w-full yellow-bg font-body font-semibold text-sm py-3.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity">
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -360,21 +408,9 @@ export default function Home() {
           <div className="text-center mb-16">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">Investimento Tudo Incluso</p>
             <h2 className="font-display font-bold text-5xl md:text-6xl text-[var(--text-primary)]">
-              Planos {ciclo === "mensal" ? "Mensais" : "Anuais"}
+              Planos Mensais
             </h2>
             <p className="font-body text-sm text-[var(--text-50)] mt-4">Hospedagem, suporte técnico e manutenção já inclusos na assinatura.</p>
-            
-            <div className="inline-flex items-center gap-1 mt-8 p-1 rounded-full border border-[var(--border-15)] bg-[var(--bg-secondary)]">
-              <button onClick={() => setCiclo("mensal")} className={`font-body text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full cursor-pointer transition-all ${ciclo === "mensal" ? "yellow-bg" : "text-[var(--text-50)]"}`}>
-                Mensal
-              </button>
-              <button onClick={() => setCiclo("anual")} className={`font-body text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full cursor-pointer transition-all flex items-center gap-2 ${ciclo === "anual" ? "yellow-bg" : "text-[var(--text-50)]"}`}>
-                Anual
-                <span className={`text-[10px] px-2 py-0.5 rounded-full ${ciclo === "anual" ? "bg-[var(--text-on-yellow)] text-[var(--brand-yellow)]" : "blue-bg text-white"}`}>
-                  17% OFF
-                </span>
-              </button>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
@@ -387,51 +423,21 @@ export default function Home() {
                 )}
                 <p className={`font-body text-xs tracking-widest uppercase mb-2 ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>{p.nome}</p>
 
-                {ciclo === "mensal" ? (
-                  <>
-                    <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
-                      R$ {p.precoAnterior}/mês
-                    </div>
-                
-                    <div className="flex items-end gap-1 mb-4">
-                      <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
-                        R$
-                      </span>
-                
-                      <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>
-                        {p.preco}
-                      </span>
-                
-                      <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
-                        /mês
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
-                      R$ {Number(p.preco) * 12}/ano
-                    </div>
-                
-                    <div className="flex items-end gap-1 mb-2">
-                      <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
-                        R$
-                      </span>
-                
-                      <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>
-                        {p.precoAnual}
-                      </span>
-                
-                      <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
-                        /ano
-                      </span>
-                    </div>
-                
-                    <p className={`font-body text-xs -mt-1 mb-4 ${p.destaque ? "text-white/60" : "text-[var(--text-40)]"}`}>
-                      equivale a R$ {Math.round(Number(p.precoAnual) / 12)}/mês · pagamento único anual
-                    </p>
-                  </>
-                )}
+                <div className={`font-body text-xs line-through -mb-1 ${p.destaque ? "text-white/40" : "text-[var(--text-30)]"}`}>
+                  R$ {p.precoAnterior}/mês
+                </div>
+
+                <div className="flex items-end gap-1 mb-4">
+                  <span className={`font-body text-sm ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                    R$
+                  </span>
+                  <span className={`font-display font-bold text-5xl ${p.destaque ? "text-white" : "text-[var(--text-primary)]"}`}>
+                    {p.preco}
+                  </span>
+                  <span className={`font-body text-xs mb-1 ${p.destaque ? "text-white/50" : "text-[var(--text-40)]"}`}>
+                    /mês
+                  </span>
+                </div>
 
                 <div className="flex flex-col gap-1 mb-6">
                   <span className={`font-body text-xs ${p.destaque ? "text-white/70" : "text-[var(--text-50)]"}`}>📸 Fotos: {p.foto}</span>
@@ -445,21 +451,27 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <a href="#contato"
+
+                {/* Leva direto para o pagamento no Mercado Pago (cartão com recorrência ou PIX avulso) */}
+                <a href={p.linkPagamento} target="_blank" rel="noopener noreferrer"
                   className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
-                  Solicitar Orçamento
+                  Assinar Agora
                 </a>
               </div>
             ))}
           </div>
 
+          <p className="font-body text-xs text-[var(--text-30)] text-center mt-6">
+            Pagamento processado com segurança pelo Mercado Pago · Cartão (recorrente) ou PIX
+          </p>
+
           {/* CARD DE SERVIÇO ADICIONAL */}
           <div className="mt-16 bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center">
-            
+
             <p className="font-body text-xs tracking-widest uppercase mb-3 text-[var(--text-50)]">
               Serviço adicional
             </p>
-          
+
             <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-3">
               Ensaio Fotográfico Profissional
             </h3>
@@ -467,16 +479,16 @@ export default function Home() {
             <p className="font-display font-bold text-4xl yellow mb-4">
               R$ 1.500
             </p>
-          
+
             <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço,
               produtos e equipe. Fotos entregues prontas para o site e redes sociais.
             </p>
-          
+
           </div>
         </div>
       </section>
-      
+
       {/* ─── FAQ ─────────────────────────────────────────── */}
       <section id="faq" className="py-28 bg-[var(--bg-secondary)] border-b border-[var(--border-5)]">
         <div className="container max-w-3xl">
@@ -557,16 +569,7 @@ export default function Home() {
               </a>
             </div>
 
-            <form onSubmit={async (e) => {
-              e.preventDefault();
-              if (!e.currentTarget.checkValidity()) return;
-              const formData = new FormData(e.currentTarget);
-              formData.append("access_key", "6a2da3ae-2318-40b7-9895-eb17047c2fb0");
-              formData.append("subject", "Novo contato pelo site — Hefezzia");
-              await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
-              alert("Mensagem enviada! Retornaremos em breve.");
-              e.currentTarget.reset();
-            }} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <input name="nome" type="text" placeholder="Nome completo *" required value={nameValue} onInput={handleName}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
@@ -579,30 +582,18 @@ export default function Home() {
               <input name="numero" type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              {/* Passo 1: escolhe o ciclo de pagamento */}
-              <select name="ciclo" required value={formCiclo} onChange={(e) => setFormCiclo(e.target.value as "" | "mensal" | "anual")}
-              className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
-                <option value="" className="bg-[var(--bg-primary)]">Ciclo de pagamento *</option>
-                <option value="mensal" className="bg-[var(--bg-primary)]">Mensal</option>
-                <option value="anual" className="bg-[var(--bg-primary)]">Anual (17% OFF)</option>
+              <select name="plano" required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+                <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
+                {planos.map((p) => (
+                  <option key={p.nome} value={p.nome.toLowerCase()} className="bg-[var(--bg-primary)]">
+                    {p.nome} — R$ {p.preco}/mês
+                  </option>
+                ))}
                 <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
               </select>
-              
-              {/* Passo 2: só aparece depois do ciclo escolhido — usa os preços já cadastrados em "planos" */}
-              {formCiclo && (
-                <select name="plano" required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
-                  <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
-                  {planos.map((p) => (
-                    <option key={p.nome} value={p.nome.toLowerCase()} className="bg-[var(--bg-primary)]">
-                      {p.nome} — R$ {formCiclo === "anual" ? p.precoAnual : p.preco}{formCiclo === "anual" ? "/ano" : "/mês"}
-                    </option>
-                  ))}
-                  <option value="nao-sei" className="bg-[var(--bg-primary)]">Ainda não sei</option>
-                </select>
-              )}
 
               <select name="segmento" required value={segmento} onChange={(e) => setSegmento(e.target.value)}
-              className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Segmento do negócio *</option>
                 <option value="Barbearia / Salão" className="bg-[var(--bg-primary)]">Barbearia / Salão</option>
                 <option value="Restaurante / Alimentação" className="bg-[var(--bg-primary)]">Restaurante / Alimentação</option>
@@ -631,8 +622,9 @@ export default function Home() {
               <textarea name="mensagem" placeholder="Conte um pouco sobre o seu negócio (opcional)" rows={3}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors resize-none placeholder:text-[var(--text-40)]" />
 
-              <button type="submit" className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer">
-                Enviar Mensagem
+              <button type="submit" disabled={sending}
+                className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
+                {sending ? "Enviando..." : "Enviar Mensagem"}
               </button>
               <p className="font-body text-xs text-[var(--text-25)] text-center">
                 Respondemos em até 4 horas úteis. Seus dados não são compartilhados.
