@@ -309,7 +309,7 @@ export default function Home() {
       </div>
 
       {/* ─── HERO ────────────────────────────────────────── */}
-      <section id="início" className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden border-b border-[var(--border-5)]">
+      <section id="inicio" className="min-h-screen flex flex-col justify-center pt-32 pb-20 relative overflow-hidden border-b border-[var(--border-5)]">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 blur-3xl pointer-events-none"
           style={{ background: "radial-gradient(circle, #152fb2, #5E5C96, transparent)" }} />
 
@@ -318,7 +318,6 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10">
-          <a href="#inicio"
           <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-6 fade-up">
             Desenvolvimento Web · Design Digital
           </p>
