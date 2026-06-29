@@ -318,6 +318,7 @@ export default function Home() {
         </div>
 
         <div className="container relative z-10">
+          <a href="#inicio"
           <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-6 fade-up">
             Desenvolvimento Web · Design Digital
           </p>
