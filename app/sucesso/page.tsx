@@ -48,7 +48,7 @@ export default function Sucesso() {
           {/* ── ESQUERDA: confirmação ── */}
           <div>
             <div className="flex items-center gap-4 mb-6">
-              <svg viewBox="0 -9 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+              <svg viewBox="0 -15 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
                 <path
                   d="M50 4
                     a4 4 0 0 1 5.5 1
