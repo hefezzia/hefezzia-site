@@ -190,20 +190,25 @@ export default function Home() {
   // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!e.currentTarget.checkValidity()) return;
+    const form = e.currentTarget;
+    if (!form.checkValidity()) return;
+
+    // Captura o plano ANTES de qualquer operação assíncrona —
+    // o valor do estado pode ficar desatualizado dentro do closure do finally
+    const planoEscolhido = planos.find(pl => pl.nome.toLowerCase() === planoSelecionado);
 
     setSending(true);
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
     formData.append("access_key", "6a2da3ae-2318-40b7-9895-eb17047c2fb0");
     formData.append("subject", "Novo contato pelo site — Hefezzia");
 
     try {
       await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+    } catch {
+      // Ignora erros de rede: o redirecionamento ao MP acontece de qualquer jeito
     } finally {
-      const planoEscolhido = planos.find(pl => pl.nome.toLowerCase() === planoSelecionado);
-
       setSending(false);
-      e.currentTarget.reset();
+      form.reset();
       setNameValue("");
       setPhoneValue("");
       setQuerEnsaio(false);
