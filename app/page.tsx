@@ -54,7 +54,6 @@ const portfolio = [
 
 // Planos só mensais. Cada plano tem o link de pagamento do Mercado Pago,
 // usado para redirecionar o cliente DEPOIS que ele preencher o formulário
-// (e não mais direto no clique do botão do card).
 const planos = [
   {
     nome: "Silver",
@@ -169,16 +168,15 @@ export default function Home() {
     setNameValue(input);
   };
 
-  // Clique nos cards de plano: NÃO abre mais o pagamento direto.
-  // Pré-seleciona o plano no formulário e rola até a seção de contato.
+  // Pré-seleciona o plano no formulário e rola até a seção de contato
   const selecionarPlano = (nomePlano: string) => {
     setPlanoSelecionado(nomePlano.toLowerCase());
     document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
   };
 
   // Envia o formulário para o Web3Forms e, se um plano pago foi escolhido,
-  // redireciona para o link de pagamento DAQUELE plano específico.
-  // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso.
+  // redireciona para o link de pagamento DAQUELE plano específico
+  // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) return;
@@ -203,7 +201,7 @@ export default function Home() {
       if (planoEscolhido) {
         // Vai direto para o checkout do plano escolhido.
         // O retorno (back_url) é configurado no painel do Mercado Pago,
-        // apontando para /sucesso.
+        // apontando para /sucesso
         window.location.href = planoEscolhido.linkPagamento;
       } else {
         setPlanoSelecionado("");
@@ -473,8 +471,8 @@ export default function Home() {
                   ))}
                 </ul>
 
-                {/* Agora NÃO leva direto ao pagamento — pré-seleciona o plano
-                    no formulário e rola até a seção de contato. */}
+                {/* Pré-seleciona o plano
+                    no formulário e rola até a seção de contato */}
                 <button onClick={() => selecionarPlano(p.nome)}
                   className={`block w-full text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
                   Assinar Agora
@@ -609,7 +607,7 @@ export default function Home() {
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
               {/* Controlado por planoSelecionado: vem pré-preenchido quando o
-                  cliente clica em "Assinar Agora" num card de plano. */}
+                  cliente clica em "Assinar Agora" num card de plano */}
               <select name="plano" required value={planoSelecionado} onChange={(e) => setPlanoSelecionado(e.target.value)}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
