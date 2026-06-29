@@ -203,12 +203,9 @@ export default function Home() {
     formData.append("subject", "Novo contato pelo site — Hefezzia");
 
     try {
-      await Promise.race([
-        fetch("https://api.web3forms.com/submit", { method: "POST", body: formData }),
-        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 5000))
-      ]);
+      await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
     } catch {
-      // Ignora erros e timeout: o redirecionamento ao MP acontece de qualquer jeito
+      // Ignora erros de rede: o redirecionamento ao MP acontece de qualquer jeito
     } finally {
       setSending(false);
       form.reset();
@@ -229,7 +226,7 @@ export default function Home() {
     }
   };
 
-  const navLinks = ["Portfólio","Planos","FAQ","Contato"];
+  const navLinks = ["Início","Portfólio","Planos","FAQ","Contato"];
 
   return (
     <main className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]">
@@ -256,7 +253,7 @@ export default function Home() {
       )}
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
-      <button onClick={() => document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" })}
+      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         className={`fixed right-4 z-[999] yellow-bg w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg cursor-pointer transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
         ↑
       </button>
@@ -269,7 +266,7 @@ export default function Home() {
           </a>
           <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`}
+              <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
                 className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
                 {link}
               </a>
@@ -289,7 +286,7 @@ export default function Home() {
         </div>
         <div className={`lg:hidden overflow-hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 transition-all duration-300 ease-in-out space-y-4 ${menuOpen ? "max-h-96 py-6 opacity-100" : "max-h-0 py-0 opacity-0"}`}>
           {navLinks.map(link => (
-            <a key={link} href={`#${link.toLowerCase()}`}
+            <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
               className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
               onClick={() => setMenuOpen(false)}>{link}</a>
           ))}
