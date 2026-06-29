@@ -253,7 +253,7 @@ export default function Home() {
       )}
 
       {/* ─── SCROLL TOP ──────────────────────────────────── */}
-      <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      <button onClick={() => document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" })}
         className={`fixed right-4 z-[999] yellow-bg w-10 h-10 rounded-full flex items-center justify-center font-bold shadow-lg cursor-pointer transition-all duration-400 ${showTop ? "bottom-4 opacity-100" : "-bottom-16 opacity-0"}`}>
         ↑
       </button>
@@ -265,7 +265,7 @@ export default function Home() {
             Hefe<span className="font-display yellow">zz</span>ia
           </a>
           <nav className="hidden lg:flex items-center gap-10">
-            <a onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            <a onClick={() => document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" })}
               className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
               Início
             </a>
