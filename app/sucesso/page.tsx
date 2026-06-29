@@ -48,13 +48,53 @@ export default function Sucesso() {
           {/* ── ESQUERDA: confirmação ── */}
           <div>
             <div className="flex items-center gap-4 mb-6">
-              <svg viewBox="0 0 200 200" width="72" height="72" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-                <g transform="translate(100,100)">
-                  <path d="M0,-72 C6,-72 10,-68 14,-65 C18,-62 23,-62 27,-65 C31,-68 35,-70 39,-67 C43,-64 43,-59 46,-56 C49,-53 54,-52 56,-48 C58,-44 56,-39 57,-35 C58,-31 62,-28 62,-24 C62,-20 59,-16 59,-12 C59,-8 62,-4 61,0 C60,4 57,7 56,11 C55,15 57,20 55,24 C53,28 49,30 46,33 C43,36 43,41 39,44 C35,47 31,45 27,47 C23,49 20,53 16,54 C12,55 8,53 4,54 C0,55 -3,58 -7,58 C-11,58 -14,55 -18,54 C-22,53 -26,55 -30,54 C-34,53 -37,49 -41,47 C-45,45 -49,47 -53,44 C-57,41 -57,36 -60,33 C-63,30 -67,28 -68,24 C-69,20 -67,15 -68,11 C-69,7 -72,4 -73,0 C-74,-4 -71,-8 -71,-12 C-71,-16 -74,-20 -73,-24 C-72,-28 -68,-31 -67,-35 C-66,-39 -68,-44 -66,-48 C-64,-52 -59,-53 -56,-56 C-53,-59 -53,-64 -49,-67 C-45,-70 -41,-68 -37,-65 C-33,-62 -28,-62 -24,-65 C-20,-68 -16,-70 -12,-67 C-8,-64 -8,-59 -5,-56 C-2,-53 4,-52 6,-48 Z"
-                    fill="#FFCA00" />
-                  <path d="M-22,2 L-8,18 L24,-18"
-                    stroke="#0A0A0A" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                </g>
+              <svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                <path
+                  d="M50 4
+                    a4 4 0 0 1 5.5 1
+                    a4 4 0 0 0 6 0
+                    a4 4 0 0 1 5.5 1
+                    a4 4 0 0 0 5.5 2
+                    a4 4 0 0 1 4 3.5
+                    a4 4 0 0 0 5 3.5
+                    a4 4 0 0 1 2 5
+                    a4 4 0 0 0 3 5.5
+                    a4 4 0 0 1 0 5.5
+                    a4 4 0 0 0 1 6
+                    a4 4 0 0 1 -1 5.5
+                    a4 4 0 0 0 -2 5.5
+                    a4 4 0 0 1 -3.5 4
+                    a4 4 0 0 0 -3.5 5
+                    a4 4 0 0 1 -5 2
+                    a4 4 0 0 0 -5.5 3
+                    a4 4 0 0 1 -5.5 0
+                    a4 4 0 0 0 -6 1
+                    a4 4 0 0 1 -5.5 -1
+                    a4 4 0 0 0 -5.5 -2
+                    a4 4 0 0 1 -4 -3.5
+                    a4 4 0 0 0 -5 -3.5
+                    a4 4 0 0 1 -2 -5
+                    a4 4 0 0 0 -3 -5.5
+                    a4 4 0 0 1 0 -5.5
+                    a4 4 0 0 0 -1 -6
+                    a4 4 0 0 1 1 -5.5
+                    a4 4 0 0 0 2 -5.5
+                    a4 4 0 0 1 3.5 -4
+                    a4 4 0 0 0 3.5 -5
+                    a4 4 0 0 1 5 -2
+                    a4 4 0 0 0 5.5 -3
+                    a4 4 0 0 1 5.5 0
+                    Z"
+                  fill="var(--brand-yellow)"
+                />
+                <path
+                  d="M33 50 l12 12 l22 -22"
+                  stroke="var(--text-on-yellow)"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
               </svg>
               <p className="font-display font-bold text-lg text-[var(--text-primary)] leading-tight">
                 Pagamento<br />confirmado
