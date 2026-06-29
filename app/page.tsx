@@ -226,7 +226,7 @@ export default function Home() {
     }
   };
 
-  const navLinks = ["Início","Portfólio","Planos","FAQ","Contato"];
+  const navLinks = ["Portfólio","Planos","FAQ","Contato"];
 
   return (
     <main className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]">
@@ -265,6 +265,10 @@ export default function Home() {
             Hefe<span className="font-display yellow">zz</span>ia
           </a>
           <nav className="hidden lg:flex items-center gap-10">
+            <a onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
+              Início
+            </a>
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
                 className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
@@ -285,6 +289,10 @@ export default function Home() {
           </button>
         </div>
         <div className={`lg:hidden overflow-hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 transition-all duration-300 ease-in-out space-y-4 ${menuOpen ? "max-h-96 py-6 opacity-100" : "max-h-0 py-0 opacity-0"}`}>
+          <a onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setMenuOpen(false); }}
+            className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer">
+            Início
+          </a>
           {navLinks.map(link => (
             <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
               className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
