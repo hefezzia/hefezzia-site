@@ -43,17 +43,29 @@ export default function Sucesso() {
           style={{ background: "radial-gradient(circle, #152fb2, #5E5C96, transparent)" }}
         />
 
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center py-8">
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-0 items-center py-8">
 
           {/* ── ESQUERDA: confirmação ── */}
           <div>
-            <div className="w-14 h-14 yellow-bg rounded-full flex items-center justify-center mb-6 shadow-lg">
-              <span className="material-icons text-2xl" style={{ color: "var(--text-on-yellow)" }}>check</span>
+            <div className="flex items-center gap-4 mb-6">
+              <svg viewBox="0 0 100 100" width="56" height="56" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                <polygon
+                  points="50,2 61,35 96,35 68,57 79,91 50,70 21,91 32,57 4,35 39,35"
+                  fill="var(--brand-yellow)"
+                />
+                <path
+                  d="M34 50 l11 11 l21 -21"
+                  stroke="var(--text-on-yellow)"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
+              <p className="font-display font-bold text-lg text-[var(--text-primary)] leading-tight">
+                Pagamento<br />confirmado
+              </p>
             </div>
-
-            <p className="font-body text-xs tracking-widest uppercase text-[var(--text-40)] mb-3">
-              Pagamento confirmado
-            </p>
 
             <h1 className="font-display font-bold text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-4">
               Tudo certo!<br />
@@ -84,8 +96,11 @@ export default function Sucesso() {
             </div>
           </div>
 
+          {/* Divisor vertical */}
+          <div className="hidden lg:block absolute left-1/2 top-8 bottom-8 w-px bg-[var(--border-8)]" style={{ transform: "translateX(-50%)" }} />
+
           {/* ── DIREITA: próximos passos ── */}
-          <div className="bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-8">
+          <div className="bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-8 lg:ml-12">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-30)] mb-6">
               O que acontece agora
             </p>
