@@ -136,6 +136,16 @@ export default function Home() {
   // Plano escolhido — alimentado pelo clique no card OU pela escolha manual no select
   const [planoSelecionado, setPlanoSelecionado] = useState("");
 
+  // Lê o tema salvo (ou preferência do sistema) no primeiro render,
+  // sincronizando o estado React com o atributo já aplicado pelo script inline do layout
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("hefezzia-theme");
+      const preferred = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      setTheme((saved as "dark" | "light") || preferred);
+    } catch {}
+  }, []);
+
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
@@ -175,8 +185,9 @@ export default function Home() {
   };
 
   // Envia o formulário para o Web3Forms e, se um plano pago foi escolhido,
-  // redireciona para o link de pagamento DAQUELE plano específico
-  // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso
+  // redireciona para o link de pagamento DAQUELE plano específico.
+  // O Mercado Pago então redireciona para /sucesso (configurado no painel do MP).
+  // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) return;
@@ -199,9 +210,9 @@ export default function Home() {
       setSegmento("");
 
       if (planoEscolhido) {
-        // Vai direto para o checkout do plano escolhido.
-        // O retorno (back_url) é configurado no painel do Mercado Pago,
-        // apontando para /sucesso
+        // Redireciona para o checkout do plano escolhido.
+        // O back_url (retorno após pagamento) é configurado no painel do Mercado Pago
+        // e deve apontar para https://seudominio.com.br/sucesso
         window.location.href = planoEscolhido.linkPagamento;
       } else {
         setPlanoSelecionado("");
@@ -471,8 +482,7 @@ export default function Home() {
                   ))}
                 </ul>
 
-                {/* Pré-seleciona o plano
-                    no formulário e rola até a seção de contato */}
+                {/* Pré-seleciona o plano no formulário e rola até a seção de contato */}
                 <button onClick={() => selecionarPlano(p.nome)}
                   className={`block w-full text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
                   Assinar Agora
@@ -487,28 +497,22 @@ export default function Home() {
 
           {/* CARD DE SERVIÇO ADICIONAL */}
           <div className="mt-16 bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-6 max-w-2xl mx-auto text-center">
-
             <p className="font-body text-xs tracking-widest uppercase mb-3 text-[var(--text-50)]">
               Serviço adicional
             </p>
-
             <h3 className="font-display font-bold text-2xl text-[var(--text-primary)] mb-3">
               Ensaio Fotográfico Profissional
             </h3>
-
             <p className="font-display font-bold text-4xl yellow mb-4">
               R$ 1.500
             </p>
-
             <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço,
               produtos e equipe. Fotos entregues prontas para o site e redes sociais.
             </p>
-
             <p className="font-body text-xs text-[var(--text-40)]">
               Disponível para todos os planos · Marque a opção no formulário de contato
             </p>
-
           </div>
         </div>
       </section>
@@ -653,7 +657,9 @@ export default function Home() {
                 className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
                 {sending
                   ? "Enviando..."
-                  : (planoSelecionado && planoSelecionado !== "nao-sei" ? "Ir para Pagamento" : "Enviar Mensagem")}
+                  : (planoSelecionado && planoSelecionado !== "nao-sei"
+                      ? `Ir para Pagamento · Plano ${planoSelecionado.charAt(0).toUpperCase() + planoSelecionado.slice(1)}`
+                      : "Enviar Mensagem")}
               </button>
               <p className="font-body text-xs text-[var(--text-25)] text-center">
                 {planoSelecionado && planoSelecionado !== "nao-sei"
