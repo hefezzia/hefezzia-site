@@ -203,9 +203,12 @@ export default function Home() {
     formData.append("subject", "Novo contato pelo site — Hefezzia");
 
     try {
-      await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
+      await Promise.race([
+        fetch("https://api.web3forms.com/submit", { method: "POST", body: formData }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error("timeout")), 5000))
+      ]);
     } catch {
-      // Ignora erros de rede: o redirecionamento ao MP acontece de qualquer jeito
+      // Ignora erros e timeout: o redirecionamento ao MP acontece de qualquer jeito
     } finally {
       setSending(false);
       form.reset();
@@ -265,10 +268,6 @@ export default function Home() {
             Hefe<span className="font-display yellow">zz</span>ia
           </a>
           <nav className="hidden lg:flex items-center gap-10">
-            <a onClick={() => document.getElementById("inicio")?.scrollIntoView({ behavior: "smooth" })}
-              className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
-              Início
-            </a>
             {navLinks.map(link => (
               <a key={link} href={`#${link.toLowerCase()}`}
                 className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
@@ -289,10 +288,6 @@ export default function Home() {
           </button>
         </div>
         <div className={`lg:hidden overflow-hidden bg-[var(--bg-secondary)] border-t border-[var(--border-5)] px-6 transition-all duration-300 ease-in-out space-y-4 ${menuOpen ? "max-h-96 py-6 opacity-100" : "max-h-0 py-0 opacity-0"}`}>
-          <a onClick={() => { window.scrollTo({ top: 0, behavior: "smooth" }); setMenuOpen(false); }}
-            className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer">
-            Início
-          </a>
           {navLinks.map(link => (
             <a key={link} href={`#${link.toLowerCase()}`}
               className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
