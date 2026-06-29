@@ -270,7 +270,7 @@ export default function Home() {
               Início
             </a>
             {navLinks.map(link => (
-              <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
+              <a key={link} href={`#${link.toLowerCase()}`}
                 className="font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] nav-line cursor-pointer transition-colors">
                 {link}
               </a>
@@ -294,7 +294,7 @@ export default function Home() {
             Início
           </a>
           {navLinks.map(link => (
-            <a key={link} href={`#${link.toLowerCase().replace("ó","o").replace("í","i")}`}
+            <a key={link} href={`#${link.toLowerCase()}`}
               className="block font-body text-xs tracking-widest uppercase text-[var(--text-50)] hover:text-[var(--text-primary)] cursor-pointer"
               onClick={() => setMenuOpen(false)}>{link}</a>
           ))}
