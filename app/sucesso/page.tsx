@@ -48,7 +48,7 @@ export default function Sucesso() {
           {/* ── ESQUERDA: confirmação ── */}
           <div>
             <div className="flex items-center gap-4 mb-6">
-              <svg viewBox="0 0 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+              <svg viewBox="0 -12 100 100" width="80" height="80" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
                 <path
                   d="M50 4
                     a4 4 0 0 1 5.5 1
@@ -88,9 +88,9 @@ export default function Sucesso() {
                   fill="var(--brand-yellow)"
                 />
                 <path
-                  d="M45 32 l12 12 l22 -22"
+                  d="M32 50 l10 10 l18 -18"
                   stroke="var(--text-on-yellow)"
-                  strokeWidth="7"
+                  strokeWidth="6"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   fill="none"
