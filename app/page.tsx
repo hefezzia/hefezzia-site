@@ -52,8 +52,9 @@ const portfolio = [
   },
 ];
 
-// Planos só mensais (Mercado Pago não cria assinatura anual acima de R$ 4.000).
-// Cada plano já leva o link de pagamento direto do Mercado Pago.
+// Planos só mensais. Cada plano tem o link de pagamento do Mercado Pago,
+// usado para redirecionar o cliente DEPOIS que ele preencher o formulário
+// (e não mais direto no clique do botão do card).
 const planos = [
   {
     nome: "Silver",
@@ -122,17 +123,19 @@ const faq = [
 ];
 
 export default function Home() {
-  const [scrolled, setScrolled]     = useState(false);
-  const [menuOpen, setMenuOpen]     = useState(false);
-  const [activeFaq, setActiveFaq]   = useState<number | null>(null);
-  const [showTop, setShowTop]       = useState(false);
-  const [phoneValue, setPhoneValue] = useState("");
-  const [nameValue, setNameValue]   = useState("");
-  const [theme, setTheme]           = useState<"dark" | "light">("dark");
-  const [querEnsaio, setQuerEnsaio] = useState(false);
-  const [segmento, setSegmento]     = useState("");
-  const [sending, setSending]       = useState(false);
-  const [submitted, setSubmitted]   = useState(false);
+  const [scrolled, setScrolled]             = useState(false);
+  const [menuOpen, setMenuOpen]             = useState(false);
+  const [activeFaq, setActiveFaq]           = useState<number | null>(null);
+  const [showTop, setShowTop]               = useState(false);
+  const [phoneValue, setPhoneValue]         = useState("");
+  const [nameValue, setNameValue]           = useState("");
+  const [theme, setTheme]                   = useState<"dark" | "light">("dark");
+  const [querEnsaio, setQuerEnsaio]         = useState(false);
+  const [segmento, setSegmento]             = useState("");
+  const [sending, setSending]               = useState(false);
+  const [submitted, setSubmitted]           = useState(false);
+  // Plano escolhido — alimentado pelo clique no card OU pela escolha manual no select
+  const [planoSelecionado, setPlanoSelecionado] = useState("");
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -166,9 +169,16 @@ export default function Home() {
     setNameValue(input);
   };
 
-  // Envia o formulário, mostra o aviso de sucesso da Hefezzia e
-  // limpa TODOS os campos — incluindo os controlados pelo React,
-  // que um simples form.reset() não apaga.
+  // Clique nos cards de plano: NÃO abre mais o pagamento direto.
+  // Pré-seleciona o plano no formulário e rola até a seção de contato.
+  const selecionarPlano = (nomePlano: string) => {
+    setPlanoSelecionado(nomePlano.toLowerCase());
+    document.getElementById("contato")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Envia o formulário para o Web3Forms e, se um plano pago foi escolhido,
+  // redireciona para o link de pagamento DAQUELE plano específico.
+  // Se nenhum plano pago foi escolhido ("Ainda não sei"), mostra o aviso de sucesso.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) return;
@@ -181,13 +191,24 @@ export default function Home() {
     try {
       await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
     } finally {
+      const planoEscolhido = planos.find(pl => pl.nome.toLowerCase() === planoSelecionado);
+
       setSending(false);
-      e.currentTarget.reset();      // limpa os campos não-controlados (email, mensagem, etc.)
-      setNameValue("");             // limpa os campos controlados pelo React
+      e.currentTarget.reset();
+      setNameValue("");
       setPhoneValue("");
       setQuerEnsaio(false);
       setSegmento("");
-      setSubmitted(true);           // abre o aviso de sucesso
+
+      if (planoEscolhido) {
+        // Vai direto para o checkout do plano escolhido.
+        // O retorno (back_url) é configurado no painel do Mercado Pago,
+        // apontando para /sucesso.
+        window.location.href = planoEscolhido.linkPagamento;
+      } else {
+        setPlanoSelecionado("");
+        setSubmitted(true);
+      }
     }
   };
 
@@ -196,7 +217,7 @@ export default function Home() {
   return (
     <main className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]">
 
-      {/* ─── AVISO DE SUCESSO ────────────────────────────── */}
+      {/* ─── AVISO DE SUCESSO (mensagem sem pagamento) ────── */}
       {submitted && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm px-6">
           <div className="bg-[var(--bg-secondary)] border border-[var(--border-15)] rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl">
@@ -452,17 +473,18 @@ export default function Home() {
                   ))}
                 </ul>
 
-                {/* Leva direto para o pagamento no Mercado Pago (cartão com recorrência ou PIX avulso) */}
-                <a href={p.linkPagamento} target="_blank" rel="noopener noreferrer"
-                  className={`block text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
+                {/* Agora NÃO leva direto ao pagamento — pré-seleciona o plano
+                    no formulário e rola até a seção de contato. */}
+                <button onClick={() => selecionarPlano(p.nome)}
+                  className={`block w-full text-center font-body font-semibold text-xs tracking-widest uppercase py-3.5 rounded-full cursor-pointer transition-all ${p.destaque ? "yellow-bg hover:opacity-90" : "border border-[var(--border-20)] text-[var(--text-primary)] hover:border-[var(--brand-yellow)] hover:text-[var(--brand-yellow)]"}`}>
                   Assinar Agora
-                </a>
+                </button>
               </div>
             ))}
           </div>
 
           <p className="font-body text-xs text-[var(--text-30)] text-center mt-6">
-            <br />Pagamento processado com segurança pelo Mercado Pago
+            Pagamento processado com segurança pelo Mercado Pago
           </p>
 
           {/* CARD DE SERVIÇO ADICIONAL */}
@@ -483,6 +505,10 @@ export default function Home() {
             <p className="font-body text-sm text-[var(--text-50)] leading-relaxed max-w-lg mx-auto mb-5">
               Uma equipe profissional vai até o seu negócio para fotografar o espaço,
               produtos e equipe. Fotos entregues prontas para o site e redes sociais.
+            </p>
+
+            <p className="font-body text-xs text-[var(--text-40)]">
+              Disponível para todos os planos · Marque a opção no formulário de contato
             </p>
 
           </div>
@@ -582,7 +608,10 @@ export default function Home() {
               <input name="numero" type="tel" placeholder="WhatsApp (com DDD) - Opcional" value={phoneValue} onInput={handlePhone}
                 className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
 
-              <select name="plano" required className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
+              {/* Controlado por planoSelecionado: vem pré-preenchido quando o
+                  cliente clica em "Assinar Agora" num card de plano. */}
+              <select name="plano" required value={planoSelecionado} onChange={(e) => setPlanoSelecionado(e.target.value)}
+                className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-40)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors appearance-none cursor-pointer">
                 <option value="" className="bg-[var(--bg-primary)]">Plano de interesse *</option>
                 {planos.map((p) => (
                   <option key={p.nome} value={p.nome.toLowerCase()} className="bg-[var(--bg-primary)]">
@@ -604,13 +633,13 @@ export default function Home() {
                 <option value="Outro" className="bg-[var(--bg-primary)]">Outro</option>
               </select>
 
-              {/* Aparece só quando "Outro" é selecionado — exige dizer qual é o segmento */}
+              {/* Aparece só quando "Outro" é selecionado */}
               {segmento === "Outro" && (
                 <input name="segmento_outro" type="text" placeholder="Qual é o segmento? *" required
                   className="w-full bg-transparent border-b border-[var(--border-15)] text-[var(--text-primary)] px-0 py-4 text-sm font-body focus:outline-none focus:border-[var(--brand-yellow)] transition-colors placeholder:text-[var(--text-40)]" />
               )}
 
-              {/* Ensaio fotográfico — serviço adicional opcional */}
+              {/* Ensaio fotográfico — serviço adicional opcional, avisado por e-mail */}
               <label className="flex items-start gap-3 cursor-pointer py-2">
                 <input name="fotografo" type="checkbox" checked={querEnsaio} onChange={(e) => setQuerEnsaio(e.target.checked)}
                   className="mt-1 w-4 h-4 accent-[var(--brand-yellow)] cursor-pointer" />
@@ -624,10 +653,14 @@ export default function Home() {
 
               <button type="submit" disabled={sending}
                 className="w-full yellow-bg font-body font-semibold text-sm py-4 rounded-full hover:opacity-90 transition-opacity mt-4 scale-100 active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed">
-                {sending ? "Enviando..." : "Enviar Mensagem"}
+                {sending
+                  ? "Enviando..."
+                  : (planoSelecionado && planoSelecionado !== "nao-sei" ? "Ir para Pagamento" : "Enviar Mensagem")}
               </button>
               <p className="font-body text-xs text-[var(--text-25)] text-center">
-                Respondemos em até 4 horas úteis. Seus dados não são compartilhados.
+                {planoSelecionado && planoSelecionado !== "nao-sei"
+                  ? "Você será redirecionado para o pagamento seguro do Mercado Pago."
+                  : "Respondemos em até 4 horas úteis. Seus dados não são compartilhados."}
               </p>
             </form>
           </div>
