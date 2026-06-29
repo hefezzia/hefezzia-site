@@ -88,7 +88,7 @@ export default function Sucesso() {
                   fill="var(--brand-yellow)"
                 />
                 <path
-                  d="M43 35 l10 10 l18 -18"
+                  d="M44 35 l10 10 l18 -18"
                   stroke="var(--text-on-yellow)"
                   strokeWidth="6"
                   strokeLinecap="round"
