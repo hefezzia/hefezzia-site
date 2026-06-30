@@ -16,9 +16,9 @@ export default function Sucesso() {
 
   return (
     <main
-      className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)]"
-      style={{ height: "100dvh", display: "flex", flexDirection: "column", overflow: "hidden" }}
+      className="font-body bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen lg:h-[100dvh] flex flex-col lg:overflow-hidden"
     >
+      
       {/* ─── NAVBAR ─── */}
       <header className="border-b border-[var(--border-5)] bg-[var(--bg-primary)]/95 backdrop-blur py-4 flex-shrink-0">
         <div className="container flex items-center justify-center">
@@ -30,20 +30,21 @@ export default function Sucesso() {
 
       {/* ─── CONTEÚDO ─── */}
       <div
-        className="flex-1 container flex items-center"
+        className="flex-1 container flex items-center py-10 lg:py-0"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? "translateY(0)" : "translateY(20px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
+        
         {/* Glow decorativo */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-10 blur-3xl pointer-events-none"
           style={{ background: "radial-gradient(circle, #152fb2, #5E5C96, transparent)" }}
         />
 
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-0 items-center py-8">
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 items-center py-8">
 
           {/* ── ESQUERDA: confirmação ── */}
           <div>
@@ -101,7 +102,7 @@ export default function Sucesso() {
               </p>
             </div>
 
-            <h1 className="font-display font-bold text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-4">
+            <h1 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-[var(--text-primary)] leading-tight mb-4">
               Tudo certo!<br />
               <span className="font-display yellow">Bem-vindo.</span>
             </h1>
@@ -110,7 +111,7 @@ export default function Sucesso() {
               Entraremos em contato pelo <strong className="text-[var(--text-primary)]">e-mail cadastrado</strong> em até 4 horas úteis para dar início ao seu projeto.
             </p>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 w-full">
               <a
                 href="/"
                 className="yellow-bg font-body font-semibold text-sm px-6 py-3.5 rounded-full cursor-pointer hover:opacity-90 transition-opacity"
@@ -134,7 +135,7 @@ export default function Sucesso() {
           <div className="hidden lg:block absolute left-1/2 top-8 bottom-8 w-px bg-[var(--border-8)]" style={{ transform: "translateX(-50%)" }} />
 
           {/* ── DIREITA: próximos passos ── */}
-          <div className="bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-8 lg:ml-12">
+          <div className="bg-[var(--bg-secondary)] border border-[var(--border-8)] rounded-2xl p-6 sm:p-8 lg:ml-12">
             <p className="font-body text-xs tracking-widest uppercase text-[var(--text-30)] mb-6">
               O que acontece agora
             </p>
